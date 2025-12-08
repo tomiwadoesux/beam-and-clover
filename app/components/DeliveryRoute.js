@@ -8,7 +8,7 @@ import * as THREE from "three";
 
 // --- Configuration ---
 // Responsive breakpoints
-const isLargeScreen = window.innerWidth >= 1024;
+const isLargeScreen = typeof window !== "undefined" ? window.innerWidth >= 1024 : false;
 
 // Global responsive constants
 const ACCENT_COLOR = "#000";
@@ -69,7 +69,9 @@ const randomPointOnTorus = (radius, tube) => {
 };
 
 // --- Specific Shapes ---
-const isDesktop = window.innerWidth >= 1024;
+const isDesktop = typeof window !== "undefined"
+  ? window.innerWidth >= 1024
+  : true; // SSR fallback
 
 // ---------------------- TRUCK ----------------------
 const generateTruck = () => {
