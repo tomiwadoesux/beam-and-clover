@@ -7,7 +7,7 @@ import * as THREE from "three";
 
 // --- Configuration ---
 // Responsive breakpoints
-const isLargeScreen = window.innerWidth >= 1024;
+const isLargeScreen = typeof window !== "undefined" ? window.innerWidth >= 1024 : false;
 
 // Global responsive constants
 const ACCENT_COLOR = "#000";
