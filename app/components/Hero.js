@@ -391,7 +391,10 @@ export default function Hero() {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g id="two-gears-svgrepo-com 1" clip-path="url(#clip0_232_104)">
+                                  <g
+                                    id="two-gears-svgrepo-com 1"
+                                    clipPath="url(#clip0_232_104)"
+                                  >
                   <g id="Group">
                     <g id="iconos_2_">
                       <path
@@ -436,7 +439,7 @@ export default function Hero() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g id="two-gears-svgrepo-com 1" clip-path="url(#clip0_232_104)">
+              <g id="two-gears-svgrepo-com 1" clipPath="url(#clip0_232_104)">
                 <g id="Group">
                   <g id="iconos_2_">
                     <path
