@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import AButton from "./AButton";
+import AButton from "./a-button";
 
 const RECENT_POSTS = [
   {

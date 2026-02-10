@@ -1,5 +1,5 @@
-import AButton from "./AButton";
-import DeliveryRoute from "./DeliveryRoute";
+import AButton from "./a-button";
+import DeliveryRoute from "./delivery-route";
 import Image from "next/image";
 
 // Generate random circles once at module load

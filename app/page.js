@@ -1,13 +1,13 @@
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Body from "./components/Body";
-import ServicesCarousel from "./components/ServicesCarousel";
-import WhyUs from "./components/WhyUs";
-import Globally from "./components/Globally";
-import VehicleAdmin from "./components/VehicleAdmin";
-import Logistics from "./components/Logistics";
-import Footer from "./components/Footer";
-import StayInformed from "./components/StayInformed";
+import Navbar from "./components/navbar-temp";
+import Hero from "./components/hero";
+import Body from "./components/body";
+import ServicesCarousel from "./components/services-carousell";
+import WhyUs from "./components/why-uss";
+import Globally from "./components/globally";
+import VehicleAdmin from "./components/vehicle-adminn";
+import Logistics from "./components/logistics";
+import Footer from "./components/footer";
+import StayInformed from "./components/stay-informedd";
 
 export default function Home() {
   return (

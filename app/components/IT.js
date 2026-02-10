@@ -1,6 +1,6 @@
 import Link from "next/link";
-import ITVisual from "./ITVisual";
-import AButton from "./AButton";
+import ITVisual from "./it-visual";
+import AButton from "./a-button";
 
 const SERVICES = [
   {
@@ -36,7 +36,7 @@ const SERVICES = [
     title: "Infrastructure Analysis",
     tagline: "Foundation Optimization",
     description:
-      "A rigorous, deep-dive audit of your existing digital frameworks. We don't just identify bottlenecks; we architect a complete modernization roadmap that maximizes throughput, reduces latency, and prepares your stack for hyper-growth.",
+      "A rigorous, deep-dive audit of your existing digital frameworks. We don&apos;t just identify bottlenecks; we architect a complete modernization roadmap that maximizes throughput, reduces latency, and prepares your stack for hyper-growth.",
     capabilities: [
       "Legacy System Modernization",
       "High-Throughput Architecture",
@@ -64,7 +64,7 @@ const SERVICES = [
     title: "Cybersecurity Protocols",
     tagline: "Zero-Trust Defense",
     description:
-      "Security is not a feature; it's the foundation. We implement rigorous Zero-Trust architectures, end-to-end encryption standards, and real-time threat detection systems that safeguard your critical assets against evolving vector attacks.",
+      "Security is not a feature; it&apos;s the foundation. We implement rigorous Zero-Trust architectures, end-to-end encryption standards, and real-time threat detection systems that safeguard your critical assets against evolving vector attacks.",
     capabilities: [
       "Zero-Trust Architecture",
       "Penetration Testing",
@@ -251,8 +251,8 @@ export default function IT() {
               Full-Stack Observability.
             </h2>
             <p className="text-foreground/60 text-lg mb-8">
-              We don't just fix problems; we predict them. Our systems provide
-              real-time insights into your network's health, traffic patterns,
+              We don&apos;t just fix problems; we predict them. Our systems provide
+              real-time insights into your network&apos;s health, traffic patterns,
               and security posture.
             </p>
             <ul className="space-y-4 font-mono text-sm text-foreground/80">

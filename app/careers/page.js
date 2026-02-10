@@ -1,9 +1,9 @@
 "use client";
 
-import CareerVisual from "../components/CareerVisual";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import AButton from "../components/AButton";
+import CareerVisual from "../components/career-visual";
+import Navbar from "../components/navbar-temp";
+import Footer from "../components/footer";
+import AButton from "../components/a-button";
 
 const JOBS = [
   {

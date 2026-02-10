@@ -2,9 +2,9 @@
 
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
-import AButton from "./AButton";
-import VehicleVisual from "./VehicleVisual";
-import DeliveryRoute from "./DeliveryRoute";
+import AButton from "./a-button";
+import VehicleVisual from "./vehicle-visual";
+import DeliveryRoute from "./delivery-route";
 import Image from "next/image";
 
 const style = `

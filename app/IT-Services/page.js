@@ -1,6 +1,6 @@
-import Navbar from "@/app/components/Navbar";
-import IT from "@/app/components/IT";
-import Footer from "@/app/components/Footer";
+import Navbar from "@/app/components/navbar-temp";
+import IT from "@/app/components/it";
+import Footer from "@/app/components/footer";
 
 export const metadata = {
   title: "Enterprise IT & Infrastructure Services | Beam & Clover",

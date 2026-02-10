@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -13,7 +13,8 @@ export default function PixelTransition({
   imageProps = {},
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [nextIndex, setNextIndex] = useState(1);
+  // Derive nextIndex from currentIndex instead of storing it in state
+  const nextIndex = (currentIndex + 1) % images.length;
   const containerRef = useRef(null);
   const gridRef = useRef(null);
   const isAnimating = useRef(false);
@@ -32,22 +33,10 @@ export default function PixelTransition({
       // and the DOM has updated with the new background image.
       // Doing this in useEffect (post-paint) prevents flickering.
       gsap.set(gridRef.current.children, { opacity: 1, scale: 1 });
-
-      // Determine the next index based on current
-      setNextIndex((currentIndex + 1) % images.length);
     }
-  }, [currentIndex, images.length]);
+  }, [currentIndex]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (isAnimating.current) return;
-      triggerTransition();
-    }, rotationDuration * 1000);
-
-    return () => clearInterval(interval);
-  }, [currentIndex, nextIndex, rotationDuration]);
-
-  const triggerTransition = () => {
+  const triggerTransition = useCallback(() => {
     if (!gridRef.current) return;
     isAnimating.current = true;
 
@@ -75,7 +64,16 @@ export default function PixelTransition({
         // before we make the grid visible again.
       },
     });
-  };
+  }, [nextIndex, gridSize.rows, gridSize.cols]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (isAnimating.current) return;
+      triggerTransition();
+    }, rotationDuration * 1000);
+
+    return () => clearInterval(interval);
+  }, [rotationDuration, triggerTransition]);
 
   return (
     <div ref={containerRef} className={`relative overflow-hidden ${className}`}>

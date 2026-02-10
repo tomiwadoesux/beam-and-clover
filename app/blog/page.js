@@ -1,5 +1,5 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Navbar from "../components/navbar-temp";
+import Footer from "../components/footer";
 import Link from "next/link";
 
 // External curated articles about ITS, Traffic Data, and Smart Transportation

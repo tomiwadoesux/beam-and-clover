@@ -200,8 +200,9 @@ function MorphingParticles() {
     });
   }, []);
 
-  // Initial positions buffer
-  const positions = useMemo(() => new Float32Array(POINT_COUNT * 3), []);
+  // Initial positions buffer - useState for initialization, ref for mutations
+  const [initialPositions] = useState(() => new Float32Array(POINT_COUNT * 3));
+  const positionsRef = useRef(initialPositions);
 
   useFrame((state) => {
     if (!ref.current) return;
@@ -220,6 +221,7 @@ function MorphingParticles() {
 
     const currentPositions = shapes[shapeIndex];
     const nextPositions = shapes[(shapeIndex + 1) % shapes.length];
+    const positions = positionsRef.current;
 
     // Interpolate
     for (let i = 0; i < POINT_COUNT; i++) {
@@ -245,7 +247,7 @@ function MorphingParticles() {
 
   return (
     <group rotation={[0, 0, 0]}>
-      <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
+      <Points ref={ref} positions={initialPositions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
           color={ACCENT_COLOR}

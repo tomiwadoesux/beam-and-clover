@@ -305,7 +305,11 @@ const generateMotorbike = () => {
 function MorphingParticles() {
   const ref = useRef();
 
+  // Pre-generate random seed - use useState for proper initialization
+  const [pinVariant] = useState(() => Math.random());
+  
   const shapes = useMemo(() => {
+    
     const generators = [
       generateFlag,
       generateLicensePlate,
@@ -315,7 +319,7 @@ function MorphingParticles() {
       generateTrafficLight,
       // Special handling for pin (combined sphere + cone)
       () => {
-        if (Math.random() < 0.6) {
+        if (pinVariant < 0.6) {
           const p = randomPointInSphere(1.5);
           p.y += 1.5;
           return p.multiplyScalar(SHAPE_SCALE);
@@ -338,9 +342,10 @@ function MorphingParticles() {
       }
       return positions;
     });
-  }, []);
+  }, [pinVariant]);
 
-  const positions = useMemo(() => new Float32Array(POINT_COUNT * 3), []);
+  const [initialPositions] = useState(() => new Float32Array(POINT_COUNT * 3));
+  const positionsRef = useRef(initialPositions);
 
   useFrame((state) => {
     if (!ref.current) return;
@@ -356,6 +361,7 @@ function MorphingParticles() {
 
     const currentPositions = shapes[shapeIndex];
     const nextPositions = shapes[(shapeIndex + 1) % shapes.length];
+    const positions = positionsRef.current;
 
     for (let i = 0; i < POINT_COUNT; i++) {
       const i3 = i * 3;
@@ -379,7 +385,7 @@ function MorphingParticles() {
 
   return (
     <group rotation={[0, 0, 0]}>
-      <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
+      <Points ref={ref} positions={initialPositions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
           color={ACCENT_COLOR}

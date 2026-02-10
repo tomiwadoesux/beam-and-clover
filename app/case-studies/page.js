@@ -1,5 +1,5 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Navbar from "../components/navbar-temp";
+import Footer from "../components/footer";
 
 const CASE_STUDIES = [
   {
@@ -59,7 +59,7 @@ export default function CaseStudies() {
             </span>
           </h1>
           <p className="text-xl text-foreground/60 leading-relaxed">
-            We partner with companies that aren't afraid to push boundaries. From fintech to aerospace, we solve the problems that others can't.
+            We partner with companies that aren&apos;t afraid to push boundaries. From fintech to aerospace, we solve the problems that others can&apos;t.
           </p>
         </div>
 

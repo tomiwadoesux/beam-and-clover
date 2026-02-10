@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef } from "react";
-import AButton from "./AButton";
+import AButton from "./a-button";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Logo from "./logo";
@@ -143,7 +143,7 @@ const servicesData = [
     title: "Vehicle Administration",
     desc: "Manage your fleet efficiently",
     icon: <Icons.Vehicle />,
-    href: "/Vehicle-Administration",
+    href: "/vehicle-administration",
   },
   {
     title: "IT Services",
@@ -155,7 +155,7 @@ const servicesData = [
     title: "Logistics",
     desc: "Expert advice and strategy",
     icon: <Icons.Logistics />,
-    href: "/Logistics",
+    href: "/logistics",
   },
 ];
 

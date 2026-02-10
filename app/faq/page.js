@@ -4,9 +4,9 @@ import { useState, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import AButton from "../components/AButton";
+import Navbar from "../components/navbar-temp";
+import Footer from "../components/footer";
+import AButton from "../components/a-button";
 
 // --- 3D Component: Morphing Nodes ---
 const MorphingNodes = () => {
@@ -21,9 +21,36 @@ const MorphingNodes = () => {
 
   // Generate target positions for 4 shapes
   const shapes = useMemo(() => {
+    // Pre-generate all random values to avoid impure function calls during render
+    const randomValues = {
+      sphere: Array.from({ length: count }, () => ({
+        u: Math.random(),
+        v: Math.random()
+      })),
+      cube: Array.from({ length: count }, () => ({
+        axis: Math.floor(Math.random() * 3),
+        dir: Math.random() > 0.5 ? 1 : -1,
+        x: Math.random(),
+        y: Math.random(),
+        z: Math.random()
+      })),
+      torus: Array.from({ length: count }, () => ({
+        u: Math.random(),
+        v: Math.random()
+      })),
+      icosahedron: Array.from({ length: count }, () => ({
+        h: Math.random(),
+        angle: Math.random()
+      }))
+    };
+    
+    let sphereIndex = 0;
+    let cubeIndex = 0;
+    let torusIndex = 0;
+    let icoIndex = 0;
+
     const getSpherePoint = () => {
-      const u = Math.random();
-      const v = Math.random();
+      const { u, v } = randomValues.sphere[sphereIndex++ % count];
       const theta = 2 * Math.PI * u;
       const phi = Math.acos(2 * v - 1);
       return new THREE.Vector3(
@@ -34,12 +61,11 @@ const MorphingNodes = () => {
     };
 
     const getCubePoint = () => {
-      const axis = Math.floor(Math.random() * 3);
-      const dir = Math.random() > 0.5 ? 1 : -1;
+      const { axis, dir, x, y, z } = randomValues.cube[cubeIndex++ % count];
       const point = new THREE.Vector3(
-        (Math.random() - 0.5) * 2 * radius,
-        (Math.random() - 0.5) * 2 * radius,
-        (Math.random() - 0.5) * 2 * radius,
+        (x - 0.5) * 2 * radius,
+        (y - 0.5) * 2 * radius,
+        (z - 0.5) * 2 * radius,
       );
       if (axis === 0) point.x = dir * radius;
       if (axis === 1) point.y = dir * radius;
@@ -49,14 +75,15 @@ const MorphingNodes = () => {
     };
 
     const getTorusPoint = () => {
-      const u = Math.random() * Math.PI * 2;
-      const v = Math.random() * Math.PI * 2;
+      const { u, v } = randomValues.torus[torusIndex++ % count];
+      const uAngle = u * Math.PI * 2;
+      const vAngle = v * Math.PI * 2;
       const tubeRadius = 0.6;
       const ringRadius = 1.4;
       return new THREE.Vector3(
-        (ringRadius + tubeRadius * Math.cos(v)) * Math.cos(u),
-        (ringRadius + tubeRadius * Math.cos(v)) * Math.sin(u),
-        tubeRadius * Math.sin(v),
+        (ringRadius + tubeRadius * Math.cos(vAngle)) * Math.cos(uAngle),
+        (ringRadius + tubeRadius * Math.cos(vAngle)) * Math.sin(uAngle),
+        tubeRadius * Math.sin(vAngle),
       );
     };
 
@@ -64,9 +91,10 @@ const MorphingNodes = () => {
       // Approximate points on an Icosahedron (simplified to a double pyramid for visual distinction)
       // Or simpler: a Tetrahedron or Pyramid
       // Let's do a double cone / diamond shape
-      const h = (Math.random() - 0.5) * 2 * radius;
+      const { h: hRandom, angle: angleRandom } = randomValues.icosahedron[icoIndex++ % count];
+      const h = (hRandom - 0.5) * 2 * radius;
       const r = (radius - Math.abs(h)) * 0.8; // Taper out then in
-      const angle = Math.random() * Math.PI * 2;
+      const angle = angleRandom * Math.PI * 2;
       return new THREE.Vector3(r * Math.cos(angle), h, r * Math.sin(angle));
     };
 
@@ -89,7 +117,8 @@ const MorphingNodes = () => {
     });
   }, []);
 
-  const positions = useMemo(() => new Float32Array(count * 3), []);
+  const [initialPositions] = useState(() => new Float32Array(count * 3));
+  const positionsRef = useRef(initialPositions);
 
   useFrame((state) => {
     if (!ref.current) return;
@@ -108,6 +137,7 @@ const MorphingNodes = () => {
 
     const currentPositions = shapes[shapeIndex];
     const nextPositions = shapes[(shapeIndex + 1) % 4];
+    const positions = positionsRef.current;
 
     // Interpolate positions
     for (let i = 0; i < count; i++) {
@@ -134,7 +164,7 @@ const MorphingNodes = () => {
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
+      <Points ref={ref} positions={initialPositions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
           color="#000"
@@ -177,14 +207,14 @@ const FAQS = [
     category: "Billing",
     question: "What is the cost structure?",
     answer:
-      "We operate on fixed-cost sprints or monthly retainers. This aligns our incentives: we don't profit from hours worked, but from value delivered. We scope, we agree, we ship. No surprise overages.",
+      "We operate on fixed-cost sprints or monthly retainers. This aligns our incentives: we don&apos;t profit from hours worked, but from value delivered. We scope, we agree, we ship. No surprise overages.",
   },
   {
     id: "004",
     category: "Technical",
     question: "Do you handle legacy migrations?",
     answer:
-      "Yes, but we don't just 'lift and shift'. We strangle the monolith. We systematically carve out services from your legacy stack and rebuild them in a modern environment, ensuring zero downtime during the transition.",
+      "Yes, but we don&apos;t just &apos;lift and shift&apos;. We strangle the monolith. We systematically carve out services from your legacy stack and rebuild them in a modern environment, ensuring zero downtime during the transition.",
   },
   {
     id: "005",

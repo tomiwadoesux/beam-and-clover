@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react"; // changed useLayoutEffect 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import AButton from "./AButton";
+import AButton from "./a-button";
 
 // Register explicitly outside component
 gsap.registerPlugin(ScrollTrigger);
@@ -39,7 +39,7 @@ const servicesData = [
       "Digital Compliance & Verification",
       "Smart Tracking & Monitoring",
     ],
-    href: "/Vehicle-Administration",
+    href: "/vehicle-administration",
   },
   {
     id: 3,
@@ -54,7 +54,7 @@ const servicesData = [
       "Speed & Movement Patterns",
       "Ridership (Origin-Destination)",
     ],
-    href: "/Vehicle-Administration",
+    href: "/vehicle-administration",
   },
   {
     id: 4,
@@ -77,15 +77,11 @@ export default function ServicesCarousel() {
   const container = useRef(null);
   const progressBarRef = useRef(null);
   const slidesRef = useRef([]);
-  const [isMounted, setIsMounted] = useState(false);
+  const isMountedRef = useRef(false);
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
-    // Changed to useEffect
-    if (!isMounted) return;
+    // Mark as mounted and initialize GSAP context
+    isMountedRef.current = true;
 
     const ctx = gsap.context(() => {
       const slides = slidesRef.current;
@@ -147,7 +143,7 @@ export default function ServicesCarousel() {
     }, container);
 
     return () => ctx.revert(); // Cleanup
-  }, [isMounted]);
+  }, []);
 
   return (
     <div

@@ -1,5 +1,5 @@
-import AButton from "./AButton";
-import ProgressBar from "./ProgressBar";
+import AButton from "./a-button";
+import ProgressBar from "./progress-bar";
 
 export default function InformationTech() {
   return (
