@@ -10,6 +10,7 @@ export default antfu(
 
     ignores: [
       "convex/**",
+      "app/components/body-svg.js",
     ],
 
     stylistic: {
