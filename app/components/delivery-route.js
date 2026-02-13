@@ -171,20 +171,6 @@ function generatePackage() {
   return p.multiplyScalar(SHAPE_SCALE);
 }
 
-function generateSteeringWheel() {
-  if (Math.random() < 0.8) {
-    return randomPointOnTorus(3, 0.3).multiplyScalar(SHAPE_SCALE);
-  }
-  else {
-    if (Math.random() < 0.3) {
-      return randomPointOnCylinder(0.8, 0.5, Math.PI / 2).multiplyScalar(SHAPE_SCALE);
-    }
-    else {
-      return randomPointOnBox(6, 0.4, 0.2).multiplyScalar(SHAPE_SCALE);
-    }
-  }
-}
-
 // --- Component ---
 
 function MorphingParticles() {

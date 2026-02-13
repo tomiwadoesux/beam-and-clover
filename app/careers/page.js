@@ -5,7 +5,8 @@ import CareerVisual from "../components/career-visual";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar-temp";
 
-const JOBS = [
+// Job listings data - available for future use
+const _JOBS = [
   {
     id: "ENG-001",
     title: "Senior Systems Architect",

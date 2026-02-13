@@ -3,17 +3,6 @@ import Image from "next/image";
 import AButton from "./a-button";
 import DeliveryRoute from "./delivery-route";
 
-// Generate random circles once at module load
-function generateRandomCircles() {
-  return [...Array.from({ length: 200 })].map(() => ({
-    cx: Math.random() * 1000,
-    cy: Math.random() * 500,
-    r: Math.random() * 2,
-  }));
-}
-
-const RANDOM_CIRCLES = generateRandomCircles();
-
 const MODULES = [
   {
     id: "01",

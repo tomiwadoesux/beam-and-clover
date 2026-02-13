@@ -240,21 +240,6 @@ function generateInvertedCone() {
   return p.multiplyScalar(SHAPE_SCALE);
 }
 
-function _generateCheckmark() {
-  const r = Math.random();
-
-  if (r < 0.3) {
-    return randomPointOnCylinder(0.2, 1.5, 0, -Math.PI / 4)
-      .add(new THREE.Vector3(-1.0, -0.5, 0))
-      .multiplyScalar(SHAPE_SCALE);
-  }
-  else {
-    return randomPointOnCylinder(0.2, 3.0, 0, Math.PI / 6)
-      .add(new THREE.Vector3(0.5, 0.5, 0))
-      .multiplyScalar(SHAPE_SCALE);
-  }
-}
-
 function generateTrafficCone() {
   const offsetY = isDesktop ? 0.5 : 0;
   const r = Math.random();

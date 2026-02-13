@@ -98,7 +98,7 @@ export default function PixelTransition({
           gridTemplateRows: `repeat(${gridSize.rows}, 1fr)`,
         }}
       >
-        {[...new Array(gridSize.rows * gridSize.cols)].map((_, i) => {
+        {[...Array.from({ length: gridSize.rows * gridSize.cols })].map((_, i) => {
           const row = Math.floor(i / gridSize.cols);
           const col = i % gridSize.cols;
           return (

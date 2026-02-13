@@ -194,7 +194,7 @@ export default function IT() {
       <section className="py-32">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col">
-            {SERVICES.map((service, i) => (
+            {SERVICES.map(service => (
               <div
                 key={service.id}
                 className="group grid md:grid-cols-12 gap-8 md:gap-16 py-16 md:py-20 border-t border-foreground/10 transition-all hover:bg-foreground/[0.01]"
