@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Navbar from "../components/navbar-temp";
-import Footer from "../components/footer";
+import { useRef } from "react";
+
 import AButton from "../components/a-button";
+import Footer from "../components/footer";
+import Navbar from "../components/navbar-temp";
 
 export default function Contact() {
   const containerRef = useRef(null);

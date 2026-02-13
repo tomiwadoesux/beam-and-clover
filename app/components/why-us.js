@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function WhyUs() {
   const cards = [
     {
@@ -41,22 +39,22 @@ export default function WhyUs() {
   ];
 
   return (
-    <section className="relative px-6 md:px-8 py-24 md:py-32 max-w-[1400px] mx-auto overflow-hidden">
+    <section className="relative px-4 sm:px-6 md:px-8 py-16 sm:py-24 md:py-32 max-w-[1400px] mx-auto overflow-hidden">
       {/* Background Decorative Blobs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl -z-10 mix-blend-multiply" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl -z-10 mix-blend-multiply" />
+      <div className="absolute top-0 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-purple-200/30 rounded-full blur-3xl -z-10 mix-blend-multiply" />
+      <div className="absolute bottom-0 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-blue-200/30 rounded-full blur-3xl -z-10 mix-blend-multiply" />
 
-      <div className="text-center max-w-3xl mx-auto mb-20">
-        <h2 className="text-sm font-bold tracking-widest text-[#F48244] uppercase mb-3">
+      <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
+        <h2 className="text-xs sm:text-sm font-bold tracking-widest text-[#F48244] uppercase mb-2 sm:mb-3">
           Why Choose Us
         </h2>
-        <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight mb-6">
+        <h1 className="font-heading font-bold text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-foreground tracking-tight mb-4 sm:mb-6">
           Why Organizations Choose <br className="hidden md:block" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F48244] to-[#f5a362]">
             Beam & Clover
           </span>
         </h1>
-        <p className="text-lg text-foreground/60 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-lg text-foreground/60 max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
           In our years of existence, organizations choose Beam & Clover for our
           proven expertise, commitment to excellence, and comprehensive
           solutions that ensure clients not only launch modern systems but
@@ -65,7 +63,7 @@ export default function WhyUs() {
       </div>
 
       {/* Symmetrical Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
         {cards.map((card, i) => (
           <Card
             key={i}
@@ -82,16 +80,16 @@ export default function WhyUs() {
 
 function Card({ title, description, icon }) {
   return (
-    <div className="group bg-background p-8 rounded-2xl border border-foreground/10 hover:border-[#F48244]/30 transition-colors shadow-sm hover:shadow-md">
-      <div className="w-14 h-14 rounded-xl bg-[#F48244]/10 text-[#F48244] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+    <div className="group bg-background p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-foreground/10 hover:border-[#F48244]/30 transition-colors shadow-sm hover:shadow-md">
+      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-[#F48244]/10 text-[#F48244] flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
         {icon}
       </div>
 
-      <h3 className="text-xl font-bold text-foreground mb-3 font-heading group-hover:text-[#F48244] transition-colors">
+      <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3 font-heading group-hover:text-[#F48244] transition-colors">
         {title}
       </h3>
 
-      <p className="text-foreground/60 leading-relaxed text-sm">
+      <p className="text-foreground/60 leading-relaxed text-xs sm:text-sm">
         {description}
       </p>
     </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import AButton from "./a-button";
 
 export default function Footer() {
@@ -30,7 +31,7 @@ export default function Footer() {
             <rect width="1280" height="2" fill="url(#gradientLine)" />
           </svg>
         </div>
-        
+
         <div className="w-full flex flex-col items-center pt-8 lg:pt-24 px-4 md:px-7 lg:px-64 text-center">
           <h4 className="text-xs md:text-sm font-semibold tracking-widest uppercase text-gray-500 pb-4">
             Building the systems that power your success.
@@ -57,7 +58,7 @@ export default function Footer() {
               © 2025 Beam & Clover.
             </h4>
           </div>
-          
+
           <nav className="flex-1 flex  justify-center gap-6 md:gap-8 font-semibold text-[#0c0c0c] order-1 md:order-2">
             <Link href="/company" className="hover:opacity-70 transition-opacity">Company</Link>
             <Link href="/contact" className="hover:opacity-70 transition-opacity">Contact</Link>

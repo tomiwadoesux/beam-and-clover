@@ -40,8 +40,7 @@ export default function BodySvg() {
       className="scale-95 hidden lg:block"
       dangerouslySetInnerHTML={{
         __html: `
-<svg width="100%" height="auto" viewBox="0 0 1386 556" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <div>
+<div>
       <svg
         width="100%"
         height="auto"
@@ -1490,11 +1489,7 @@ export default function BodySvg() {
           </filter>
         </defs>
       </svg>
-    </div>
-  
-  
-
-</svg>
+</div>
         `,
       }}
     />

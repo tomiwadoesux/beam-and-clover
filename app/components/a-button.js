@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
@@ -6,7 +6,7 @@ export default function AButton({
   children,
   filled = false,
   href = null,
-  showArrow = false
+  showArrow = false,
 }) {
   const containerRef = useRef(null);
   const arrowRef = useRef(null);
@@ -24,7 +24,8 @@ export default function AButton({
 
   useEffect(() => {
     const handleGlobalMouseMove = (e) => {
-      if (!arrowRef.current) return;
+      if (!arrowRef.current)
+        return;
 
       const arrowRect = arrowRef.current.getBoundingClientRect();
       const arrowCenterX = arrowRect.left + arrowRect.width / 2;
@@ -40,7 +41,8 @@ export default function AButton({
         const dx = distanceX * MAGNETISM_STRENGTH;
         const dy = distanceY * MAGNETISM_STRENGTH;
         arrowRef.current.style.transform = `translate(${dx}px, ${dy}px)`;
-      } else if (distance >= DETECTION_RADIUS) {
+      }
+      else if (distance >= DETECTION_RADIUS) {
         // Reset when cursor is far away
         arrowRef.current.style.transform = `translate(0px, 0px)`;
       }
@@ -68,7 +70,7 @@ export default function AButton({
             ref={arrowRef}
             className={`w-8 lg:w-9 h-8 lg:h-9 flex items-center justify-center ${buttonStyles} rounded-md will-change-transform`}
             style={{
-              transition: "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+              transition: "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
             }}
           >
             <svg
@@ -103,7 +105,7 @@ export default function AButton({
           ref={arrowRef}
           className={`w-9 h-9 flex items-center justify-center ${buttonStyles} rounded-md will-change-transform`}
           style={{
-            transition: "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+            transition: "transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
           }}
         >
           <svg

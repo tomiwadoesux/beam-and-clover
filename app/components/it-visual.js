@@ -1,7 +1,7 @@
 "use client";
 
+import { PointMaterial, Points } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial } from "@react-three/drei";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
@@ -10,20 +10,18 @@ import * as THREE from "three";
 const isLargeScreen = typeof window !== "undefined" ? window.innerWidth >= 1024 : false;
 
 // Global responsive constants
-const ACCENT_COLOR = "#000";
+const ACCENT_COLOR = "transparent";
 
-const POINT_COUNT = isLargeScreen ? 6000 : 9000;   // lg different, sm/md same
-const POINT_SIZE  = isLargeScreen ? 0.05 : 0.04;   // lg different, sm/md same
+const POINT_COUNT = isLargeScreen ? 6000 : 9000; // lg different, sm/md same
+const POINT_SIZE = isLargeScreen ? 0.05 : 0.04; // lg different, sm/md same
 
 const SHAPE_SCALE = 1.4;
 const TRANSITION_DURATION = 1.5;
 const PAUSE_DURATION = 4;
 
-
-
 // --- Basic Shape Helpers ---
 
-const randomPointOnBox = (width, height, depth) => {
+function randomPointOnBox(width, height, depth) {
   const u = Math.random();
   const v = Math.random();
   const face = Math.floor(Math.random() * 6);
@@ -47,9 +45,9 @@ const randomPointOnBox = (width, height, depth) => {
     default:
       return new THREE.Vector3();
   }
-};
+}
 
-const randomPointInSphere = (radius) => {
+function randomPointInSphere(radius) {
   const u = Math.random();
   const v = Math.random();
   const theta = 2 * Math.PI * u;
@@ -59,16 +57,11 @@ const randomPointInSphere = (radius) => {
   return new THREE.Vector3(
     r * sinPhi * Math.cos(theta),
     r * sinPhi * Math.sin(theta),
-    r * Math.cos(phi)
+    r * Math.cos(phi),
   );
-};
+}
 
-const randomPointOnCylinder = (
-  radius,
-  height,
-  rotationZ = 0,
-  rotationX = 0
-) => {
+function randomPointOnCylinder(radius, height, rotationZ = 0, rotationX = 0) {
   const angle = Math.random() * Math.PI * 2;
   const h = (Math.random() - 0.5) * height;
 
@@ -78,34 +71,37 @@ const randomPointOnCylinder = (
     pos = new THREE.Vector3(
       capR * Math.cos(angle),
       Math.random() > 0.5 ? height / 2 : -height / 2,
-      capR * Math.sin(angle)
+      capR * Math.sin(angle),
     );
-  } else {
+  }
+  else {
     pos = new THREE.Vector3(
       radius * Math.cos(angle),
       h,
-      radius * Math.sin(angle)
+      radius * Math.sin(angle),
     );
   }
 
-  if (rotationZ) pos.applyAxisAngle(new THREE.Vector3(0, 0, 1), rotationZ);
-  if (rotationX) pos.applyAxisAngle(new THREE.Vector3(1, 0, 0), rotationX);
+  if (rotationZ)
+    pos.applyAxisAngle(new THREE.Vector3(0, 0, 1), rotationZ);
+  if (rotationX)
+    pos.applyAxisAngle(new THREE.Vector3(1, 0, 0), rotationX);
   return pos;
-};
+}
 
-const randomPointOnTorus = (radius, tube) => {
+function randomPointOnTorus(radius, tube) {
   const u = Math.random() * Math.PI * 2;
   const v = Math.random() * Math.PI * 2;
   return new THREE.Vector3(
     (radius + tube * Math.cos(v)) * Math.cos(u),
     (radius + tube * Math.cos(v)) * Math.sin(u),
-    tube * Math.sin(v)
+    tube * Math.sin(v),
   );
-};
+}
 
 // --- IT Specific Shapes ---
 
-const generateCodeBrackets = () => {
+function generateCodeBrackets() {
   // Generate < / >
   const part = Math.random();
   const p = new THREE.Vector3();
@@ -121,22 +117,26 @@ const generateCodeBrackets = () => {
     // Simple lines:
     if (upper) {
       p.set(-1.5 - t, 0.5 + t, 0);
-    } else {
+    }
+    else {
       p.set(-1.5 - t, -0.5 - t, 0);
     }
     // Add some thickness
     p.z += (Math.random() - 0.5) * 0.2;
-  } else if (part < 0.66) {
+  }
+  else if (part < 0.66) {
     // >
     const t = Math.random();
     const upper = Math.random() > 0.5;
     if (upper) {
       p.set(1.5 + t, 0.5 + t, 0);
-    } else {
+    }
+    else {
       p.set(1.5 + t, -0.5 - t, 0);
     }
     p.z += (Math.random() - 0.5) * 0.2;
-  } else {
+  }
+  else {
     // /
     // Line from (0.5, -1.5) to (-0.5, 1.5)
     const t = Math.random(); // 0 to 1
@@ -147,9 +147,9 @@ const generateCodeBrackets = () => {
   }
 
   return p.multiplyScalar(SHAPE_SCALE);
-};
+}
 
-const generatePuzzlePiece = () => {
+function generatePuzzlePiece() {
   // Main body square
   // Add tab on right, top
   // Subtract? No just simple shape union
@@ -157,21 +157,23 @@ const generatePuzzlePiece = () => {
   let p;
   if (section < 0.6) {
     p = randomPointOnBox(3, 3, 0.5);
-  } else if (section < 0.8) {
+  }
+  else if (section < 0.8) {
     // Right Tab
     p = randomPointOnCylinder(0.8, 0.5, Math.PI / 2).add(
-      new THREE.Vector3(1.5, 0, 0)
+      new THREE.Vector3(1.5, 0, 0),
     );
-  } else {
+  }
+  else {
     // Top Tab
     p = randomPointOnCylinder(0.8, 0.5, 0, Math.PI / 2).add(
-      new THREE.Vector3(0, 1.5, 0)
+      new THREE.Vector3(0, 1.5, 0),
     );
   }
   return p.multiplyScalar(SHAPE_SCALE);
-};
+}
 
-const generateBrain = () => {
+function generateBrain() {
   // Two ellipsoids
   const side = Math.random() > 0.5 ? 1 : -1;
   const p = randomPointInSphere(1.8);
@@ -188,14 +190,14 @@ const generateBrain = () => {
     p.set(
       (Math.random() - 0.5) * 0.5,
       -2 - Math.random(),
-      (Math.random() - 0.5) * 0.5
+      (Math.random() - 0.5) * 0.5,
     );
   }
 
   return p.multiplyScalar(SHAPE_SCALE);
-};
+}
 
-const generateCloud = () => {
+function generateCloud() {
   const r = Math.random();
   let p;
   // Overlapping spheres to create a lumpy cloud shape
@@ -204,24 +206,27 @@ const generateCloud = () => {
     p = randomPointInSphere(1.8);
     p.y *= 0.6; // Flatten slightly
     p.z *= 0.8;
-  } else if (r < 0.5) {
+  }
+  else if (r < 0.5) {
     // Left puff
     p = randomPointInSphere(1.2).add(new THREE.Vector3(-1.5, 0.5, 0.2));
     p.y *= 0.7;
-  } else if (r < 0.75) {
+  }
+  else if (r < 0.75) {
     // Right puff
     p = randomPointInSphere(1.3).add(new THREE.Vector3(1.7, 0.3, -0.3));
     p.y *= 0.8;
-  } else {
+  }
+  else {
     // Top puff / extended body
     p = randomPointInSphere(1.0).add(new THREE.Vector3(0, 1.2, 0.1));
     p.x *= 0.9;
     p.z *= 0.9;
   }
   return p.multiplyScalar(SHAPE_SCALE);
-};
+}
 
-const generateShield = () => {
+function generateShield() {
   const r = Math.random();
   let p = new THREE.Vector3();
   const mainWidth = 3.0;
@@ -232,19 +237,21 @@ const generateShield = () => {
   if (r < 0.7) {
     // Main body of the shield (top rectangular, bottom tapering)
     let x = (Math.random() - 0.5) * mainWidth;
-    let y = (Math.random() - 0.5) * (topHeight + bottomHeight);
-    let z = (Math.random() - 0.5) * thickness;
+    const y = (Math.random() - 0.5) * (topHeight + bottomHeight);
+    const z = (Math.random() - 0.5) * thickness;
 
     if (y > -(bottomHeight / 2)) {
       // Upper half and mid section
       // Points in a rectangle
-    } else {
+    }
+    else {
       // Tapering bottom part
       const taperFactor = (y + bottomHeight / 2) / (bottomHeight / 2); // From 0 (bottom) to 1 (middle)
       x *= 1 - taperFactor * 0.7; // Narrows towards the bottom
     }
     p.set(x, y + topHeight / 2 - bottomHeight / 4, z); // Adjust y position to center
-  } else {
+  }
+  else {
     // Central boss or rim detail
     const r_detail = Math.random();
     if (r_detail < 0.5) {
@@ -252,12 +259,13 @@ const generateShield = () => {
       p = randomPointInSphere(0.8);
       p.z = (Math.random() - 0.5) * thickness * 2; // Make it pop out
       p.y -= 0.5; // Slightly lower than center
-    } else {
+    }
+    else {
       // Outer rim (thin box around the main shape)
       const rimOffset = 0.2;
-      let x = (Math.random() - 0.5) * (mainWidth + rimOffset);
-      let y = (Math.random() - 0.5) * (topHeight + bottomHeight + rimOffset);
-      let z = (Math.random() - 0.5) * thickness;
+      const x = (Math.random() - 0.5) * (mainWidth + rimOffset);
+      const y = (Math.random() - 0.5) * (topHeight + bottomHeight + rimOffset);
+      const z = (Math.random() - 0.5) * thickness;
 
       // Only pick points near the edge of the general shield shape
       if (
@@ -267,47 +275,53 @@ const generateShield = () => {
       ) {
         // Adjust y position to match shield
         p.set(x, y + topHeight / 2 - bottomHeight / 4, z);
-      } else {
+      }
+      else {
         p.set(x, y + topHeight / 2 - bottomHeight / 4, z); // Fallback if no edge found
       }
     }
   }
   return p.multiplyScalar(SHAPE_SCALE);
-};
+}
 
-const generateServerRack = () => {
+function generateServerRack() {
   // Tall box
   if (Math.random() < 0.8) {
     // Frame/Sides
     return randomPointOnBox(2.5, 4.5, 2.5).multiplyScalar(SHAPE_SCALE);
-  } else {
+  }
+  else {
     // Blinkin lights or inner servers
     return randomPointOnBox(2.3, 4.3, 2.3).multiplyScalar(SHAPE_SCALE);
   }
-};
+}
 
-const generateChip = () => {
+function generateChip() {
   // Main square
   if (Math.random() < 0.7) {
     return randomPointOnBox(3, 3, 0.3).multiplyScalar(SHAPE_SCALE);
-  } else {
+  }
+  else {
     // Pins
     const side = Math.floor(Math.random() * 4);
     const offset = 1.7;
     const spread = (Math.random() - 0.5) * 2.5;
     const pinLen = 0.4;
 
-    let p = new THREE.Vector3();
-    if (side === 0) p.set(offset, spread, 0); // Right
-    else if (side === 1) p.set(-offset, spread, 0); // Left
-    else if (side === 2) p.set(spread, offset, 0); // Top
+    const p = new THREE.Vector3();
+    if (side === 0)
+      p.set(offset, spread, 0); // Right
+    else if (side === 1)
+      p.set(-offset, spread, 0); // Left
+    else if (side === 2)
+      p.set(spread, offset, 0); // Top
     else p.set(spread, -offset, 0); // Bottom
 
     return p.multiplyScalar(SHAPE_SCALE);
   }
-};
+}
 
-const generatePadlock = () => {
+function generatePadlock() {
   const MOVE_UP = 0.5; // amount to move the whole padlock upward
   const r = Math.random();
 
@@ -316,48 +330,53 @@ const generatePadlock = () => {
     return randomPointOnBox(2.5, 2.0, 1.0)
       .add(new THREE.Vector3(0, -1 + MOVE_UP, 0)) // <- move up
       .multiplyScalar(SHAPE_SCALE);
-  } else {
+  }
+  else {
     // Shackle
     const p = randomPointOnTorus(1.0, 0.25);
 
     // Only top half of torus
-    if (p.y < 0) p.y *= -1;
+    if (p.y < 0)
+      p.y *= -1;
 
     // Move up
     p.y += 0.2 + MOVE_UP; // <- move up
     return p.multiplyScalar(SHAPE_SCALE);
   }
-};
+}
 
-const generateScreen = () => {
+function generateScreen() {
   const r = Math.random();
   if (r < 0.7) {
     // Screen
     return randomPointOnBox(4, 2.5, 0.2)
       .add(new THREE.Vector3(0, 0.5, 0))
       .multiplyScalar(SHAPE_SCALE);
-  } else if (r < 0.85) {
+  }
+  else if (r < 0.85) {
     // Stand neck
     return randomPointOnBox(0.4, 1.5, 0.2)
       .add(new THREE.Vector3(0, -1, -0.2))
       .multiplyScalar(SHAPE_SCALE);
-  } else {
+  }
+  else {
     // Base
     return randomPointOnBox(2, 0.2, 1.5)
       .add(new THREE.Vector3(0, -1.8, 0))
       .multiplyScalar(SHAPE_SCALE);
   }
-};
+}
 
-const generateGear = () => {
+function generateGear() {
   const r = Math.random();
   if (r < 0.75) {
     // Inner solid disk (Hub + Web)
     // Radius 2, thickness 0.4, facing Z (rotX = 90)
     return randomPointOnCylinder(1.5, 0.4, 0, Math.PI / 2).multiplyScalar(
-      SHAPE_SCALE
+      SHAPE_SCALE,
     );
-  } else {
+  }
+  else {
     // Teeth
     const teeth = 8;
     const angle = (Math.floor(Math.random() * teeth) / teeth) * Math.PI * 2;
@@ -369,9 +388,9 @@ const generateGear = () => {
     p.applyAxisAngle(new THREE.Vector3(0, 0, 1), angle);
     return p.multiplyScalar(SHAPE_SCALE);
   }
-};
+}
 
-const generateChart = () => {
+function generateChart() {
   const SCALE = 0.85; // reduce size a little
 
   const r = Math.random();
@@ -379,21 +398,24 @@ const generateChart = () => {
     return randomPointOnBox(4, 0.2, 0.5)
       .add(new THREE.Vector3(0, -2, 0))
       .multiplyScalar(SHAPE_SCALE * SCALE);
-  } else {
+  }
+  else {
     const bar = Math.random();
     let p;
     if (bar < 0.33) {
       p = randomPointOnBox(0.8, 2.0, 0.5).add(new THREE.Vector3(-1.2, -1.0, 0));
-    } else if (bar < 0.66) {
+    }
+    else if (bar < 0.66) {
       p = randomPointOnBox(0.8, 3.0, 0.5).add(new THREE.Vector3(0, -0.5, 0));
-    } else {
+    }
+    else {
       p = randomPointOnBox(0.8, 4.5, 0.5).add(new THREE.Vector3(1.2, 0.25, 0));
     }
     return p.multiplyScalar(SHAPE_SCALE * SCALE);
   }
-};
+}
 
-const generateGlobe = () => {
+function generateGlobe() {
   const SCALE = 0.85; // reduce size a little
 
   const r = Math.random();
@@ -410,42 +432,46 @@ const generateGlobe = () => {
     p = new THREE.Vector3(
       Math.cos(angle) * ringRad,
       Math.sin(angle) * ringRad,
-      0
+      0,
     );
     p.applyAxisAngle(new THREE.Vector3(1, 1, 0).normalize(), Math.PI / 4);
-  } else {
+  }
+  else {
     p = new THREE.Vector3(
       rad * Math.sin(phi) * Math.cos(theta),
       rad * Math.sin(phi) * Math.sin(theta),
-      rad * Math.cos(phi)
+      rad * Math.cos(phi),
     );
   }
   return p.multiplyScalar(SHAPE_SCALE * SCALE);
-};
+}
 
-const generateRobotFace = () => {
+function generateRobotFace() {
   const r = Math.random();
   if (r < 0.6) {
     // Head
     return randomPointOnBox(2.5, 2.5, 2.5).multiplyScalar(SHAPE_SCALE);
-  } else if (r < 0.75) {
+  }
+  else if (r < 0.75) {
     // Eyes
     const side = Math.random() > 0.5 ? 1 : -1;
     return randomPointOnCylinder(0.5, 0.2, Math.PI / 2)
       .add(new THREE.Vector3(side * 0.6, 0.2, 1.3))
       .multiplyScalar(SHAPE_SCALE);
-  } else if (r < 0.85) {
+  }
+  else if (r < 0.85) {
     // Antenna
     return randomPointOnCylinder(0.1, 1.0)
       .add(new THREE.Vector3(0, 1.8, 0))
       .multiplyScalar(SHAPE_SCALE);
-  } else {
+  }
+  else {
     // Mouth
     return randomPointOnBox(1.2, 0.2, 0.1)
       .add(new THREE.Vector3(0, -0.6, 1.3))
       .multiplyScalar(SHAPE_SCALE);
   }
-};
+}
 
 // --- Component ---
 
@@ -481,7 +507,8 @@ function MorphingParticles() {
   const positionsRef = useRef(initialPositions);
 
   useFrame((state) => {
-    if (!ref.current) return;
+    if (!ref.current)
+      return;
 
     const time = state.clock.elapsedTime;
     const totalDuration = TRANSITION_DURATION + PAUSE_DURATION;
@@ -541,7 +568,7 @@ function MorphingParticles() {
 export default function ITVisual() {
   return (
     <div className="w-full pl-0  overflow-visible -top-20 lg:-top-0 h-[40vh] lg:h-[100vh] rounded-xl relative">
-      <Canvas camera={{ position: [0, 0, 15], fov: 35 }} dpr={[1, 2]}>
+      <Canvas camera={{ position: [0, 0, 15], fov: 35 }} dpr={[1, 2]} gl={{ alpha: true }}>
         <ambientLight intensity={1.0} />
         <MorphingParticles />
       </Canvas>

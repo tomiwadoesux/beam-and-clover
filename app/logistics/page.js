@@ -1,6 +1,6 @@
-import Navbar from "@/app/components/navbar";
-import Logistics from "@/app/components/logistics";
 import Footer from "@/app/components/footer";
+import Logistics from "@/app/components/logistics";
+import Navbar from "@/app/components/navbar";
 
 export const metadata = {
   title: "Logistics & Supply Chain Solutions | Beam & Clover",

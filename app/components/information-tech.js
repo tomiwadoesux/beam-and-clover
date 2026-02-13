@@ -349,7 +349,7 @@ export default function InformationTech() {
                   strokeOpacity="0.15"
                 />
               </svg>
-              {/* 
+              {/*
             <h4 className=" text-sm  text-white">
               <span className="opacity-50">Comprehensive</span> Security Audits{" "}
               <span className="opacity-50">and</span> Protocols{" "}

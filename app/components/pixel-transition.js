@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useRef, useState, useEffect, useCallback } from "react";
-import Image from "next/image";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function PixelTransition({
   images,
@@ -23,7 +23,7 @@ export default function PixelTransition({
   useGSAP(() => {
     // Ensure grid is visible initially
     if (gridRef.current) {
-        gsap.set(gridRef.current.children, { opacity: 1, scale: 1 });
+      gsap.set(gridRef.current.children, { opacity: 1, scale: 1 });
     }
   }, { scope: containerRef });
 
@@ -37,7 +37,8 @@ export default function PixelTransition({
   }, [currentIndex]);
 
   const triggerTransition = useCallback(() => {
-    if (!gridRef.current) return;
+    if (!gridRef.current)
+      return;
     isAnimating.current = true;
 
     const cells = gridRef.current.children;
@@ -57,10 +58,10 @@ export default function PixelTransition({
         // Update the current index to match the one we just revealed
         setCurrentIndex(nextIndex);
         isAnimating.current = false;
-        
-        // We do NOT reset the grid here. 
+
+        // We do NOT reset the grid here.
         // We wait for the state update to trigger the useGSAP hook above.
-        // This ensures the DOM has updated with the new background image 
+        // This ensures the DOM has updated with the new background image
         // before we make the grid visible again.
       },
     });
@@ -68,7 +69,8 @@ export default function PixelTransition({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (isAnimating.current) return;
+      if (isAnimating.current)
+        return;
       triggerTransition();
     }, rotationDuration * 1000);
 
@@ -96,7 +98,7 @@ export default function PixelTransition({
           gridTemplateRows: `repeat(${gridSize.rows}, 1fr)`,
         }}
       >
-        {[...Array(gridSize.rows * gridSize.cols)].map((_, i) => {
+        {[...new Array(gridSize.rows * gridSize.cols)].map((_, i) => {
           const row = Math.floor(i / gridSize.cols);
           const col = i % gridSize.cols;
           return (

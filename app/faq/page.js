@@ -1,17 +1,18 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial } from "@react-three/drei";
+import { PointMaterial, Points } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
-import Navbar from "../components/navbar-temp";
-import Footer from "../components/footer";
+
 import AButton from "../components/a-button";
+import Footer from "../components/footer";
+import Navbar from "../components/navbar-temp";
 
 // --- 3D Component: Morphing Nodes ---
-const MorphingNodes = () => {
+function _MorphingNodes() {
   const ref = useRef();
-  const [currentShapeIndex, setCurrentShapeIndex] = useState(0);
+  const [_currentShapeIndex, _setCurrentShapeIndex] = useState(0);
 
   // Configuration
   const count = 2000; // Number of nodes
@@ -25,25 +26,25 @@ const MorphingNodes = () => {
     const randomValues = {
       sphere: Array.from({ length: count }, () => ({
         u: Math.random(),
-        v: Math.random()
+        v: Math.random(),
       })),
       cube: Array.from({ length: count }, () => ({
         axis: Math.floor(Math.random() * 3),
         dir: Math.random() > 0.5 ? 1 : -1,
         x: Math.random(),
         y: Math.random(),
-        z: Math.random()
+        z: Math.random(),
       })),
       torus: Array.from({ length: count }, () => ({
         u: Math.random(),
-        v: Math.random()
+        v: Math.random(),
       })),
       icosahedron: Array.from({ length: count }, () => ({
         h: Math.random(),
-        angle: Math.random()
-      }))
+        angle: Math.random(),
+      })),
     };
-    
+
     let sphereIndex = 0;
     let cubeIndex = 0;
     let torusIndex = 0;
@@ -67,9 +68,12 @@ const MorphingNodes = () => {
         (y - 0.5) * 2 * radius,
         (z - 0.5) * 2 * radius,
       );
-      if (axis === 0) point.x = dir * radius;
-      if (axis === 1) point.y = dir * radius;
-      if (axis === 2) point.z = dir * radius;
+      if (axis === 0)
+        point.x = dir * radius;
+      if (axis === 1)
+        point.y = dir * radius;
+      if (axis === 2)
+        point.z = dir * radius;
       // Scale down slightly to match visual weight
       return point.multiplyScalar(0.7);
     };
@@ -121,7 +125,8 @@ const MorphingNodes = () => {
   const positionsRef = useRef(initialPositions);
 
   useFrame((state) => {
-    if (!ref.current) return;
+    if (!ref.current)
+      return;
 
     const time = state.clock.elapsedTime;
     // Calculate cycle
@@ -167,7 +172,7 @@ const MorphingNodes = () => {
       <Points ref={ref} positions={initialPositions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#000"
+          color="transparent"
           size={0.04}
           sizeAttenuation={true}
           depthWrite={false}
@@ -176,7 +181,7 @@ const MorphingNodes = () => {
       </Points>
     </group>
   );
-};
+}
 
 const CATEGORIES = [
   "All",
@@ -250,12 +255,12 @@ const FAQS = [
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: FAQS.map((faq) => ({
+  "mainEntity": FAQS.map((faq) => ({
     "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: {
+    "name": faq.question,
+    "acceptedAnswer": {
       "@type": "Answer",
-      text: faq.answer,
+      "text": faq.answer,
     },
   })),
 };
@@ -386,10 +391,10 @@ export default function FAQ() {
                     onClick={() => setActiveCategory(cat)}
                     className={`w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-200 font-medium flex justify-between items-center group
                     ${
-                      activeCategory === cat
-                        ? "bg-[#F48244]/10 text-[#F48244]"
-                        : "text-foreground/60 hover:bg-foreground/5 hover:text-foreground"
-                    }`}
+                  activeCategory === cat
+                    ? "bg-[#F48244]/10 text-[#F48244]"
+                    : "text-foreground/60 hover:bg-foreground/5 hover:text-foreground"
+                  }`}
                   >
                     {cat}
                     {activeCategory === cat && (
@@ -402,111 +407,112 @@ export default function FAQ() {
 
             {/* Main Content - FAQ List */}
             <div className="flex-1 min-h-[500px]">
-              {filteredFaqs.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-64 text-foreground/40 border border-dashed border-foreground/10 rounded-xl">
-                  <p className="font-mono">
-                    No protocols found matching query.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSearchQuery("");
-                      setActiveCategory("All");
-                    }}
-                    className="mt-4 text-sm text-[#F48244] hover:underline"
-                  >
-                    Reset Filters
-                  </button>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {filteredFaqs.map((faq) => (
-                    <div
-                      key={faq.id}
-                      className={`group border rounded-xl overflow-hidden transition-all duration-300 ease-out
-                        ${
-                          expandedId === faq.id
-                            ? "border-[#F48244]/30 bg-foreground/[0.02]"
-                            : "border-foreground/10 bg-background hover:border-foreground/20"
-                        }`}
-                    >
+              {filteredFaqs.length === 0 ?
+                  (
+                    <div className="flex flex-col items-center justify-center h-64 text-foreground/40 border border-dashed border-foreground/10 rounded-xl">
+                      <p className="font-mono">
+                        No protocols found matching query.
+                      </p>
                       <button
-                        onClick={() =>
-                          setExpandedId(expandedId === faq.id ? null : faq.id)
-                        }
-                        className="w-full flex items-start gap-6 p-6 text-left focus:outline-none"
+                        onClick={() => {
+                          setSearchQuery("");
+                          setActiveCategory("All");
+                        }}
+                        className="mt-4 text-sm text-[#F48244] hover:underline"
                       >
-                        <span
-                          className={`font-mono text-xs mt-1 transition-colors duration-300 ${
-                            expandedId === faq.id
-                              ? "text-[#F48244]"
-                              : "text-foreground/30"
-                          }`}
-                        >
-                          {faq.id}
-                        </span>
-
-                        <div className="flex-1">
-                          <h3
-                            className={`text-lg font-medium pr-8 transition-colors duration-300 ${
-                              expandedId === faq.id
-                                ? "text-foreground"
-                                : "text-foreground/80"
-                            }`}
-                          >
-                            {faq.question}
-                          </h3>
-
-                          <div
-                            className={`grid transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] ${
-                              expandedId === faq.id
-                                ? "grid-rows-[1fr] opacity-100 mt-4"
-                                : "grid-rows-[0fr] opacity-0 mt-0"
-                            }`}
-                          >
-                            <div className="overflow-hidden">
-                              <p className="text-foreground/60 leading-relaxed text-base max-w-2xl">
-                                {faq.answer}
-                              </p>
-
-                              {/* Tag Pill */}
-                              <div className="mt-6 flex items-center gap-2">
-                                <span className="inline-flex items-center px-2 py-1 rounded text-[10px] font-mono uppercase tracking-wider bg-foreground/5 text-foreground/50 border border-foreground/5">
-                                  {faq.category}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Expand Icon */}
-                        <div
-                          className={`flex-shrink-0 w-6 h-6 rounded-full border border-foreground/10 flex items-center justify-center transition-colors duration-300 ${
-                            expandedId === faq.id
-                              ? "bg-[#F48244] border-[#F48244] text-white"
-                              : "bg-transparent text-foreground/40 group-hover:border-foreground/30"
-                          }`}
-                        >
-                          <svg
-                            className={`w-3 h-3 transition-transform duration-300 ${
-                              expandedId === faq.id ? "rotate-180" : "rotate-0"
-                            }`}
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M19 9l-7 7-7-7"
-                            />
-                          </svg>
-                        </div>
+                        Reset Filters
                       </button>
                     </div>
-                  ))}
-                </div>
-              )}
+                  ) :
+                  (
+                    <div className="space-y-4">
+                      {filteredFaqs.map(faq => (
+                        <div
+                          key={faq.id}
+                          className={`group border rounded-xl overflow-hidden transition-all duration-300 ease-out
+                                ${
+                                  expandedId === faq.id
+                                    ? "grid-rows-[1fr] opacity-100 mt-4"
+                                    : "grid-rows-[0fr] opacity-0 mt-0"
+                                }`}
+                        >
+                          <button
+                            onClick={() =>
+                              setExpandedId(expandedId === faq.id ? null : faq.id)}
+                            className="w-full flex items-start gap-6 p-6 text-left focus:outline-none"
+                          >
+                            <span
+                              className={`font-mono text-xs mt-1 transition-colors duration-300 ${
+                                expandedId === faq.id
+                                  ? "text-[#F48244]"
+                                  : "text-foreground/30"
+                              }`}
+                            >
+                              {faq.id}
+                            </span>
+
+                            <div className="flex-1">
+                              <h3
+                                className={`text-lg font-medium pr-8 transition-colors duration-300 ${
+                                  expandedId === faq.id
+                                    ? "text-foreground"
+                                    : "text-foreground/80"
+                                }`}
+                              >
+                                {faq.question}
+                              </h3>
+
+                              <div
+                                className={`grid transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] ${
+                                  expandedId === faq.id ?
+                                    "grid-rows-[1fr] opacity-100 mt-4" :
+                                    "grid-rows-[0fr] opacity-0 mt-0"
+                                }`}
+                              >
+                                <div className="overflow-hidden">
+                                  <p className="text-foreground/60 leading-relaxed text-base max-w-2xl">
+                                    {faq.answer}
+                                  </p>
+
+                                  {/* Tag Pill */}
+                                  <div className="mt-6 flex items-center gap-2">
+                                    <span className="inline-flex items-center px-2 py-1 rounded text-[10px] font-mono uppercase tracking-wider bg-foreground/5 text-foreground/50 border border-foreground/5">
+                                      {faq.category}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Expand Icon */}
+                            <div
+                              className={`flex-shrink-0 w-6 h-6 rounded-full border border-foreground/10 flex items-center justify-center transition-colors duration-300 ${
+                                expandedId === faq.id
+                                  ? "bg-[#F48244] border-[#F48244] text-white"
+                                  : "bg-transparent text-foreground/40 group-hover:border-foreground/30"
+                              }`}
+                            >
+                              <svg
+                                className={`w-3 h-3 transition-transform duration-300 ${
+                                  expandedId === faq.id ? "rotate-180" : "rotate-0"
+                                }`}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M19 9l-7 7-7-7"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
             </div>
           </div>
         </div>

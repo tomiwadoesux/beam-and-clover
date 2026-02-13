@@ -1,15 +1,16 @@
-import AButton from "./a-button";
-import DeliveryRoute from "./delivery-route";
 import Image from "next/image";
 
+import AButton from "./a-button";
+import DeliveryRoute from "./delivery-route";
+
 // Generate random circles once at module load
-const generateRandomCircles = () => {
-  return [...Array(200)].map(() => ({
+function generateRandomCircles() {
+  return [...Array.from({ length: 200 })].map(() => ({
     cx: Math.random() * 1000,
     cy: Math.random() * 500,
     r: Math.random() * 2,
   }));
-};
+}
 
 const RANDOM_CIRCLES = generateRandomCircles();
 
@@ -38,7 +39,7 @@ const MODULES = [
     subtitle: "Smarter storage systems",
     desc: "Maximize warehouse efficiency with intelligent inventory systems and automated workflows. Our solutions include layout optimization, RFID tracking, and real-time inventory management that eliminate waste and accelerate fulfillment. We deploy autonomous guided vehicles (AGVs) and smart shelving units that reduce picking time by up to 40%.",
     icon: (
-     <Image
+      <Image
         src="/images/warehouse2.webp"
         alt=""
         width={1900}
@@ -72,7 +73,7 @@ const MODULES = [
     subtitle: "Last-mile excellence",
     desc: "Give customers visibility while optimizing your last-mile operations. Our tracking platforms, proof-of-delivery systems, and failed delivery management ensure customer satisfaction at every touchpoint. We provide a white-labeled tracking interface that integrates seamlessly into your existing customer portal.",
     icon: (
-     <Image
+      <Image
         src="/images/delivery-management.webp"
         alt=""
         width={1900}
@@ -96,7 +97,7 @@ const MODULES = [
         height={600}
         priority
         className="rounded-xl scale-100 lg:scale-85"
-        
+
       />
     ),
   },
@@ -179,8 +180,6 @@ export default function Logistics() {
                     {module.icon}
                   </div>
 
-
-                  
                 </div>
               </div>
             </div>

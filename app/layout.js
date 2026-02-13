@@ -1,4 +1,5 @@
-import { Mulish, Open_Sans, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Mulish, Open_Sans } from "next/font/google";
+
 import "./globals.css";
 
 const mulish = Mulish({
@@ -37,8 +38,8 @@ export const metadata = {
     index: true,
     follow: true,
     googleBot: {
-      index: true,
-      follow: true,
+      "index": true,
+      "follow": true,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
@@ -85,29 +86,29 @@ const jsonLd = {
     {
       "@type": "Organization",
       "@id": "https://beamandclover.com/#organization",
-      name: "Beam & Clover Technology Solutions Ltd",
-      url: "https://beamandclover.com",
-      logo: {
+      "name": "Beam & Clover Technology Solutions Ltd",
+      "url": "https://beamandclover.com",
+      "logo": {
         "@type": "ImageObject",
-        url: "https://beamandclover.com/images/B-C.png",
+        "url": "https://beamandclover.com/images/B-C.png",
       },
-      description:
+      "description":
         "Technology-driven solutions provider specializing in digital vehicle administration, traffic data collection, enterprise IT integration, and logistics consulting services in Nigeria.",
-      email: "beamandclovertech@gmail.com",
-      telephone: "+234-703-421-8092",
-      address: {
+      "email": "beamandclovertech@gmail.com",
+      "telephone": "+234-703-421-8092",
+      "address": {
         "@type": "PostalAddress",
-        streetAddress:
+        "streetAddress":
           "Suite DC10, Apo Spark-light Mall, Opp. Living Faith Church, Durumi",
-        addressLocality: "Abuja",
-        addressCountry: "NG",
+        "addressLocality": "Abuja",
+        "addressCountry": "NG",
       },
-      sameAs: [],
-      areaServed: {
+      "sameAs": [],
+      "areaServed": {
         "@type": "Country",
-        name: "Nigeria",
+        "name": "Nigeria",
       },
-      serviceType: [
+      "serviceType": [
         "Vehicle Administration Systems",
         "Traffic Survey Services",
         "IT Integration",
@@ -118,32 +119,32 @@ const jsonLd = {
     {
       "@type": "LocalBusiness",
       "@id": "https://beamandclover.com/#localbusiness",
-      name: "Beam & Clover Technology Solutions Ltd",
-      image: "https://beamandclover.com/images/B-C.png",
-      url: "https://beamandclover.com",
-      telephone: "+234-703-421-8092",
-      email: "beamandclovertech@gmail.com",
-      address: {
+      "name": "Beam & Clover Technology Solutions Ltd",
+      "image": "https://beamandclover.com/images/B-C.png",
+      "url": "https://beamandclover.com",
+      "telephone": "+234-703-421-8092",
+      "email": "beamandclovertech@gmail.com",
+      "address": {
         "@type": "PostalAddress",
-        streetAddress:
+        "streetAddress":
           "Suite DC10, Apo Spark-light Mall, Opp. Living Faith Church, Durumi",
-        addressLocality: "Abuja",
-        addressRegion: "FCT",
-        addressCountry: "NG",
+        "addressLocality": "Abuja",
+        "addressRegion": "FCT",
+        "addressCountry": "NG",
       },
-      geo: {
+      "geo": {
         "@type": "GeoCoordinates",
-        latitude: 9.0192,
-        longitude: 7.4515,
+        "latitude": 9.0192,
+        "longitude": 7.4515,
       },
-      priceRange: "$$",
+      "priceRange": "$$",
     },
     {
       "@type": "WebSite",
       "@id": "https://beamandclover.com/#website",
-      url: "https://beamandclover.com",
-      name: "Beam & Clover",
-      publisher: {
+      "url": "https://beamandclover.com",
+      "name": "Beam & Clover",
+      "publisher": {
         "@id": "https://beamandclover.com/#organization",
       },
     },
@@ -154,6 +155,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

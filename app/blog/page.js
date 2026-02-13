@@ -1,6 +1,7 @@
-import Navbar from "../components/navbar-temp";
-import Footer from "../components/footer";
 import Link from "next/link";
+
+import Footer from "../components/footer";
+import Navbar from "../components/navbar-temp";
 
 // External curated articles about ITS, Traffic Data, and Smart Transportation
 const EXTERNAL_ARTICLES = [

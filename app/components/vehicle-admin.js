@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
-import AButton from "./a-button";
-import VehicleVisual from "./vehicle-visual";
-import DeliveryRoute from "./delivery-route";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
+import AButton from "./a-button";
 
 const style = `
   @keyframes fadeIn {
@@ -55,7 +54,7 @@ export default function VehicleAdmin() {
 
     const renderContent = (item) => {
       switch (item) {
-        case "Vehicle Registration":
+        case "Vehicle Registration": {
           const registrationPoints = [
             {
               title: "Online registration portals ",
@@ -208,7 +207,8 @@ export default function VehicleAdmin() {
               </div>
             </div>
           );
-        case "License Plates":
+        }
+        case "License Plates": {
           return (
             <div>
               <h2
@@ -261,7 +261,8 @@ export default function VehicleAdmin() {
               </div>
             </div>
           );
-        case "Fleet management":
+        }
+        case "Fleet management": {
           const fleetFeatures = [
             {
               title: "GPS tracking and route optimization",
@@ -420,7 +421,8 @@ export default function VehicleAdmin() {
               </div>
             </div>
           );
-        case "Vehicle Inspection":
+        }
+        case "Vehicle Inspection": {
           const inspectionPoints = [
             {
               title: "Intelligent Transport System",
@@ -575,7 +577,8 @@ export default function VehicleAdmin() {
               </div>
             </div>
           );
-        case "Regulatory Support":
+        }
+        case "Regulatory Support": {
           return (
             <div className="animate-fadeIn">
               <h2
@@ -623,7 +626,8 @@ export default function VehicleAdmin() {
               </div>
             </div>
           );
-        case "Traffic Studies":
+        }
+        case "Traffic Studies": {
           return (
             <div>
               <h2 className="text-3xl text-center lg:hidden font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/60">
@@ -667,6 +671,7 @@ export default function VehicleAdmin() {
               </div>
             </div>
           );
+        }
         default:
           return null;
       }
@@ -704,7 +709,8 @@ export default function VehicleAdmin() {
         if (diff > 0 && dragStartIndex.current < menuItems.length - 1) {
           // Swiped left, go to next item
           setActiveItem(menuItems[dragStartIndex.current + 1]);
-        } else if (diff < 0 && dragStartIndex.current > 0) {
+        }
+        else if (diff < 0 && dragStartIndex.current > 0) {
           // Swiped right, go to previous item
           setActiveItem(menuItems[dragStartIndex.current - 1]);
         }
@@ -727,44 +733,33 @@ export default function VehicleAdmin() {
 
     return (
       <section className="px-7 md:px-10  pt-20 lg:pt-24 lg:px-12 ">
-        <div className="max-w-[1400px] overflow-visible mx-auto w-full relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-          <div
-            className=" overflow-visible lg:hidden relative w-full"
-            style={{ height: "150px" }}
-          >
-            <VehicleVisual />
-          </div>
+        <div className="max-w-[1400px] overflow-visible mx-auto w-full relative z-10 grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center px-4 sm:px-6 lg:px-0">
+
           <div>
-            <div className="flex items-center gap-3 pb-5 lg:pb-8">
+            <div className="flex items-center gap-3 pb-3 sm:pb-5 lg:pb-8">
               <div className="flex items-center gap-1.5 px-2 py-1 bg-[#F48244]/10 text-[#F48244] text-xs font-mono  rounded border border-[#F48244]/20 uppercase tracking-wider">
                 <span className="w-1.5 h-1.5 bg-[#F48244]/60 rounded-full animate-pulse" />
                 Vehicle Administration{" "}
               </div>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/60 font-semibold tracking-tighter leading-[0.9] pb-4 md:pb-8">
+            <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/60 font-semibold tracking-tighter leading-[0.9] pb-3 sm:pb-4 md:pb-8">
               Smart Vehicle Administration & Licensing
             </h1>
 
-            <p className="text-sm md:text-lg lg:text-xl text-foreground/60 max-w-sm md:max-w-2xl leading-relaxed ">
+            <p className="text-xs sm:text-sm md:text-lg lg:text-xl text-foreground/60 max-w-sm md:max-w-2xl leading-relaxed ">
               We streamline and digitalize vehicle administration processes
               while ensuring full regulatory compliance and customer
               satisfaction. Our specialized services cover everything from
               registration to traffic policy consulting.
             </p>
-            <div className="pt-4">
+            <div className="pt-3 sm:pt-4">
               <AButton href="/contact" filled showArrow>
                 Get a Demo
               </AButton>
             </div>
           </div>
 
-          <div
-            className=" overflow-visible hidden pointer-events-none lg:block -z-50 -top-56 relative w-full"
-            style={{ height: "200px" }}
-          >
-            <VehicleVisual />
-          </div>
         </div>
 
         {/* Desktop: Text-based Navigation */}
@@ -786,7 +781,8 @@ export default function VehicleAdmin() {
                 <div
                   key={item}
                   ref={(el) => {
-                    if (el) desktopItemRefs.current[item] = el;
+                    if (el)
+                      desktopItemRefs.current[item] = el;
                   }}
                   onClick={() => setActiveItem(item)}
                   className={`
@@ -801,9 +797,9 @@ export default function VehicleAdmin() {
                 z-10
                 rounded-full
                 ${
-                  item === activeItem
-                    ? "text-foreground font-semibold"
-                    : "text-foreground/60 hover:text-foreground"
+                item === activeItem
+                  ? "text-foreground font-semibold"
+                  : "text-foreground/60 hover:text-foreground"
                 }
               `}
                 >
@@ -863,7 +859,8 @@ export default function VehicleAdmin() {
                 <div
                   key={item}
                   ref={(el) => {
-                    if (el) mobileItemRefs.current[item] = el;
+                    if (el)
+                      mobileItemRefs.current[item] = el;
                   }}
                   onClick={() => setActiveItem(item)}
                   className={`transition-all duration-300 cursor-pointer ${

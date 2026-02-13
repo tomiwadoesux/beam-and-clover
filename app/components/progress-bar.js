@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ProgressBar({ label = "[01]" }) {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -8,7 +8,8 @@ export default function ProgressBar({ label = "[01]" }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
+      if (!sectionRef.current)
+        return;
 
       const sectionTop = sectionRef.current.offsetTop;
       const sectionHeight = sectionRef.current.offsetHeight;

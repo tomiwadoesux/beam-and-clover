@@ -24,8 +24,6 @@ export default antfu(
       // Custom overrides
       "no-console": ["warn"],
       "antfu/no-top-level-await": "off",
-      "node/prefer-global/process": "off",
-      "node/no-process-env": "error",
 
       // Perfectionist sorting
       "perfectionist/sort-imports": [

@@ -1,6 +1,7 @@
 import Link from "next/link";
-import ITVisual from "./it-visual";
+
 import AButton from "./a-button";
+import ITVisual from "./it-visual";
 
 const SERVICES = [
   {

@@ -76,32 +76,33 @@ Beam and Clover Technology Solutions
 Limited
 Mission and Vision
 Corporate Overview
+
 1. Vehicle Administration Systems
-Beam & Clover builds digital platforms in partnership with government bodies and enterprise fleets to
-modernise vehicle lifecycle processes. These solutions replace manual operations with automated digital
-systems that:
-i. Reduce processing times
-ii. Eliminate manual errors
-iii. Deliver secure, compliant administration
-iv. Facilitate license management, renewals, and document handling
-v. Provide smart tracking and monitoring capabilities
-This service is particularly tailored for ministries, transport authorities, and large fleet operations seeking
-efficiency and regulatory compliance.
-IT Integration & Technology Services
-The company helps organizations navigate digital transformation by delivering bespoke IT solutions,
-including:
-i. Custom software development & deployment
-ii. AI automation and optimisation
-iii. Cloud computing and data services
-iv. IT consulting and digital strategy
-v. Network infrastructure design and implementation
-These services are designed to bridge the gap between modern technology capabilities and business
-execution goals, enhancing operational efficiency and enabling sustainable, secure growth.
-Core Services
-Traffic Survey and Transportation Related Studies
-Beam and Clover Technology Solutions Limited provides professional traffic survey services using a
-combination of automatic traffic data collection equipment and manual survey methods. We deploys sensors,
-counters, and video-based systems alongside trained field personnel to capture accurate data on:
+   Beam & Clover builds digital platforms in partnership with government bodies and enterprise fleets to
+   modernise vehicle lifecycle processes. These solutions replace manual operations with automated digital
+   systems that:
+   i. Reduce processing times
+   ii. Eliminate manual errors
+   iii. Deliver secure, compliant administration
+   iv. Facilitate license management, renewals, and document handling
+   v. Provide smart tracking and monitoring capabilities
+   This service is particularly tailored for ministries, transport authorities, and large fleet operations seeking
+   efficiency and regulatory compliance.
+   IT Integration & Technology Services
+   The company helps organizations navigate digital transformation by delivering bespoke IT solutions,
+   including:
+   i. Custom software development & deployment
+   ii. AI automation and optimisation
+   iii. Cloud computing and data services
+   iv. IT consulting and digital strategy
+   v. Network infrastructure design and implementation
+   These services are designed to bridge the gap between modern technology capabilities and business
+   execution goals, enhancing operational efficiency and enabling sustainable, secure growth.
+   Core Services
+   Traffic Survey and Transportation Related Studies
+   Beam and Clover Technology Solutions Limited provides professional traffic survey services using a
+   combination of automatic traffic data collection equipment and manual survey methods. We deploys sensors,
+   counters, and video-based systems alongside trained field personnel to capture accurate data on:
 
 i. Traffic volume
 

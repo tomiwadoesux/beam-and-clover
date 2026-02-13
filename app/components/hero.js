@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import AButton from "./a-button";
-import { useEffect, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+import AButton from "./a-button";
 import PixelTransition from "./pixel-transition";
 
 export default function Hero() {
@@ -143,29 +143,29 @@ export default function Hero() {
       </div>
 
       {/* Main Hero Content */}
-      <div className="w-full flex  flex-col items-center pt-6 px-4 md:px-7 lg:px-12">
+      <div className="w-full flex flex-col items-center pt-4 sm:pt-6 px-3 sm:px-4 md:px-7 lg:px-12">
         {/* Headline */}
-        <h1 className="font-heading tracking-tight font-semibold leading-tight text-2xl  md:text-3xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/60 md:px-5 lg:px-14 text-center  pb-4 lg:pb-6 ">
+        <h1 className="font-heading tracking-tight font-semibold leading-tight text-lg sm:text-2xl md:text-3xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/60 px-1 sm:px-4 md:px-5 lg:px-14 text-center pb-3 sm:pb-4 lg:pb-6">
           Empowering Businesses Through Technology, Mobility, and Logistics
           Innovation
         </h1>
 
         {/* Description */}
-        <p className="text-sm lg:text-base text-black text-center px-1 md:px-25 lg:px-40 pb-6 lg:pb-8 ">
+        <p className="text-xs sm:text-sm lg:text-base text-black text-center px-2 sm:px-4 md:px-12 lg:px-40 pb-4 sm:pb-6 lg:pb-8">
           Integrating Technology, Mobility, and Logistics expertise to deliver
           compliant, efficient, and secure end-to-end solutions for enterprise
           and government operations.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex gap-6 items-center justify-center mb-12">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 items-center justify-center mb-8 sm:mb-12 w-full sm:w-auto px-4 sm:px-0">
           {/* Get Started Button */}
-          <AButton href="/get-started" showArrow filled>
+          <AButton href="/get-started" showArrow filled className="w-full sm:w-auto">
             Get Started
           </AButton>
 
           {/* Learn More Button */}
-          <AButton href="/get-started" showArrow>
+          <AButton href="/get-started" showArrow className="w-full sm:w-auto">
             Learn More
           </AButton>
         </div>
@@ -196,37 +196,37 @@ export default function Hero() {
       </div>
 
       {/* Trusted By Section */}
-      <div className="w-full py-12">
-        <div className="flex flex-col items-center gap-8">
+      <div className="w-full py-8 sm:py-12">
+        <div className="flex flex-col items-center gap-4 sm:gap-8">
           {/* Heading */}
-          <h4 className="text-sm text-center text-foreground font-normal">
+          <h4 className="text-xs sm:text-sm text-center text-foreground font-normal px-4 sm:px-6">
             We are Trusted by Nigerian Government Agencies, Large Enterprises &
             Private Sector Organizations
           </h4>
 
           {/* Trust Logos - Centered */}
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 lg:gap-16 px-6">
+          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 md:gap-12 lg:gap-16 px-4 sm:px-6">
             {/* Government Agencies: trust-01, 02, 03 */}
             <Image
               src="/images/trust-01.png"
               alt="FCT DRTS"
               width={120}
               height={60}
-              className="h-12 md:h-14 w-auto object-contain opacity-70"
+              className="h-8 sm:h-12 md:h-14 w-auto object-contain opacity-70"
             />
             <Image
               src="/images/trust-02.png"
               alt="Anambra State"
               width={120}
               height={60}
-              className="h-12 md:h-14 w-auto object-contain opacity-70"
+              className="h-8 sm:h-12 md:h-14 w-auto object-contain opacity-70"
             />
             <Image
               src="/images/trust-03.png"
               alt="Abia State"
               width={120}
               height={60}
-              className="h-12 md:h-14 w-auto object-contain opacity-70"
+              className="h-8 sm:h-12 md:h-14 w-auto object-contain opacity-70"
             />
             {/* Large Enterprise & Private Sector: trust-04 */}
             <Image
@@ -234,7 +234,7 @@ export default function Hero() {
               alt="Enterprise Partner"
               width={120}
               height={60}
-              className="h-12 md:h-14 w-auto object-contain opacity-70"
+              className="h-8 sm:h-12 md:h-14 w-auto object-contain opacity-70"
             />
           </div>
         </div>

@@ -30,6 +30,7 @@ The setup is designed for **Next.js 16 (App Router + Turbopack)** and focuses on
 This project uses **@antfu/eslint-config**, a widely adopted, community-maintained ESLint configuration.
 
 ### What it enforces
+
 - React & JSX best practices
 - DOM & SVG property validation
 - Import ordering
