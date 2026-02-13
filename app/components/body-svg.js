@@ -1,57 +1,46 @@
+
+
+
+"use client";
+
 import { useEffect } from "react";
 import gsap from "gsap";
 
 export default function BodySvg() {
   useEffect(() => {
     const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.5 });
-    tl.add("start")
 
-      // MOVE OUT
-      .add("moveOut")
+    tl.add("moveOut")
       .to("#car1", { y: -330, duration: 4, ease: "power1.inOut" }, "moveOut")
       .to("#car2", { y: 405, duration: 4, ease: "power1.inOut" }, "moveOut")
       .to("#car3", { y: -405, duration: 4, ease: "power1.inOut" }, "moveOut")
       .to("#car4", { y: 330, duration: 4, ease: "power1.inOut" }, "moveOut")
 
-      // ROTATE
       .add("rotate")
-      .to(
-        "#car1",
-        { rotation: 180, transformOrigin: "center center", duration: 0.7 },
-        "rotate"
-      )
-      .to(
-        "#car2",
-        { rotation: -180, transformOrigin: "center center", duration: 0.7 },
-        "rotate"
-      )
-      .to(
-        "#car3",
-        { rotation: 180, transformOrigin: "center center", duration: 0.7 },
-        "rotate"
-      )
-      .to(
-        "#car4",
-        { rotation: -180, transformOrigin: "center center", duration: 0.7 },
-        "rotate"
-      )
+      .to("#car1", { rotation: 180, transformOrigin: "center center", duration: 0.7 }, "rotate")
+      .to("#car2", { rotation: -180, transformOrigin: "center center", duration: 0.7 }, "rotate")
+      .to("#car3", { rotation: 180, transformOrigin: "center center", duration: 0.7 }, "rotate")
+      .to("#car4", { rotation: -180, transformOrigin: "center center", duration: 0.7 }, "rotate")
 
-      // MOVE BACK
       .add("moveBack")
       .to("#car1", { y: 0, duration: 4 }, "moveBack")
       .to("#car2", { y: 0, duration: 4 }, "moveBack")
       .to("#car3", { y: 0, duration: 4 }, "moveBack")
       .to("#car4", { y: 0, duration: 4 }, "moveBack")
 
-      // RESET ROTATION
       .add("resetRotate")
       .to("#car1", { rotation: 0, duration: 0.7 }, "resetRotate")
       .to("#car2", { rotation: 0, duration: 0.7 }, "resetRotate")
       .to("#car3", { rotation: 0, duration: 0.7 }, "resetRotate")
       .to("#car4", { rotation: 0, duration: 0.7 }, "resetRotate");
   }, []);
+
   return (
-    <div>
+    <div
+      className="scale-95 hidden lg:block"
+      dangerouslySetInnerHTML={{
+        __html: `
+<div>
       <svg
         width="100%"
         height="auto"
@@ -1500,6 +1489,9 @@ export default function BodySvg() {
           </filter>
         </defs>
       </svg>
-    </div>
+</div>
+        `,
+      }}
+    />
   );
 }

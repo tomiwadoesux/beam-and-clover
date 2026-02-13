@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import { useRef } from "react";
+
+import Footer from "../components/footer";
+import Navbar from "../components/navbar-temp";
 
 gsap.registerPlugin(ScrollTrigger);
 

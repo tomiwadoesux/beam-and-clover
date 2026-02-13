@@ -1,152 +1,10 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial } from "@react-three/drei";
-import * as THREE from "three";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import AButton from "../components/AButton";
+import { useState } from "react";
 
-// --- 3D Component: Morphing Nodes ---
-const MorphingNodes = () => {
-  const ref = useRef();
-  const [currentShapeIndex, setCurrentShapeIndex] = useState(0);
-
-  // Configuration
-  const count = 2000; // Number of nodes
-  const radius = 2; // Base radius
-  const transitionDuration = 2.5; // Seconds per shape
-  const pauseDuration = 1; // Seconds to hold shape
-
-  // Generate target positions for 4 shapes
-  const shapes = useMemo(() => {
-    const getSpherePoint = () => {
-      const u = Math.random();
-      const v = Math.random();
-      const theta = 2 * Math.PI * u;
-      const phi = Math.acos(2 * v - 1);
-      return new THREE.Vector3(
-        radius * Math.sin(phi) * Math.cos(theta),
-        radius * Math.sin(phi) * Math.sin(theta),
-        radius * Math.cos(phi),
-      );
-    };
-
-    const getCubePoint = () => {
-      const axis = Math.floor(Math.random() * 3);
-      const dir = Math.random() > 0.5 ? 1 : -1;
-      const point = new THREE.Vector3(
-        (Math.random() - 0.5) * 2 * radius,
-        (Math.random() - 0.5) * 2 * radius,
-        (Math.random() - 0.5) * 2 * radius,
-      );
-      if (axis === 0) point.x = dir * radius;
-      if (axis === 1) point.y = dir * radius;
-      if (axis === 2) point.z = dir * radius;
-      // Scale down slightly to match visual weight
-      return point.multiplyScalar(0.7);
-    };
-
-    const getTorusPoint = () => {
-      const u = Math.random() * Math.PI * 2;
-      const v = Math.random() * Math.PI * 2;
-      const tubeRadius = 0.6;
-      const ringRadius = 1.4;
-      return new THREE.Vector3(
-        (ringRadius + tubeRadius * Math.cos(v)) * Math.cos(u),
-        (ringRadius + tubeRadius * Math.cos(v)) * Math.sin(u),
-        tubeRadius * Math.sin(v),
-      );
-    };
-
-    const getIcosahedronPoint = () => {
-      // Approximate points on an Icosahedron (simplified to a double pyramid for visual distinction)
-      // Or simpler: a Tetrahedron or Pyramid
-      // Let's do a double cone / diamond shape
-      const h = (Math.random() - 0.5) * 2 * radius;
-      const r = (radius - Math.abs(h)) * 0.8; // Taper out then in
-      const angle = Math.random() * Math.PI * 2;
-      return new THREE.Vector3(r * Math.cos(angle), h, r * Math.sin(angle));
-    };
-
-    const generators = [
-      getSpherePoint,
-      getCubePoint,
-      getTorusPoint,
-      getIcosahedronPoint,
-    ];
-
-    return generators.map((gen) => {
-      const positions = new Float32Array(count * 3);
-      for (let i = 0; i < count; i++) {
-        const p = gen();
-        positions[i * 3] = p.x;
-        positions[i * 3 + 1] = p.y;
-        positions[i * 3 + 2] = p.z;
-      }
-      return positions;
-    });
-  }, []);
-
-  const positions = useMemo(() => new Float32Array(count * 3), []);
-
-  useFrame((state) => {
-    if (!ref.current) return;
-
-    const time = state.clock.elapsedTime;
-    // Calculate cycle
-    const totalDuration = transitionDuration + pauseDuration;
-    const cycleTime = time % (totalDuration * 4); // 4 shapes
-    const shapeIndex = Math.floor(cycleTime / totalDuration);
-    const progressInCycle = (cycleTime % totalDuration) / transitionDuration;
-
-    // Clamp progress to 1 (handle pause)
-    const t = Math.min(progressInCycle, 1);
-    // Smooth easing
-    const smoothT = t * t * (3 - 2 * t);
-
-    const currentPositions = shapes[shapeIndex];
-    const nextPositions = shapes[(shapeIndex + 1) % 4];
-
-    // Interpolate positions
-    for (let i = 0; i < count; i++) {
-      const i3 = i * 3;
-      const cx = currentPositions[i3];
-      const cy = currentPositions[i3 + 1];
-      const cz = currentPositions[i3 + 2];
-
-      const nx = nextPositions[i3];
-      const ny = nextPositions[i3 + 1];
-      const nz = nextPositions[i3 + 2];
-
-      positions[i3] = cx + (nx - cx) * smoothT;
-      positions[i3 + 1] = cy + (ny - cy) * smoothT;
-      positions[i3 + 2] = cz + (nz - cz) * smoothT;
-    }
-
-    ref.current.geometry.attributes.position.needsUpdate = true;
-
-    // Rotate the whole cloud
-    ref.current.rotation.y = time * 0.2;
-    ref.current.rotation.x = Math.sin(time * 0.1) * 0.1;
-  });
-
-  return (
-    <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
-        <PointMaterial
-          transparent
-          color="#000"
-          size={0.04}
-          sizeAttenuation={true}
-          depthWrite={false}
-          opacity={0.8}
-        />
-      </Points>
-    </group>
-  );
-};
+import AButton from "../components/a-button";
+import Footer from "../components/footer";
+import Navbar from "../components/navbar-temp";
 
 const CATEGORIES = [
   "All",
@@ -177,14 +35,14 @@ const FAQS = [
     category: "Billing",
     question: "What is the cost structure?",
     answer:
-      "We operate on fixed-cost sprints or monthly retainers. This aligns our incentives: we don't profit from hours worked, but from value delivered. We scope, we agree, we ship. No surprise overages.",
+      "We operate on fixed-cost sprints or monthly retainers. This aligns our incentives: we don&apos;t profit from hours worked, but from value delivered. We scope, we agree, we ship. No surprise overages.",
   },
   {
     id: "004",
     category: "Technical",
     question: "Do you handle legacy migrations?",
     answer:
-      "Yes, but we don't just 'lift and shift'. We strangle the monolith. We systematically carve out services from your legacy stack and rebuild them in a modern environment, ensuring zero downtime during the transition.",
+      "Yes, but we don&apos;t just &apos;lift and shift&apos;. We strangle the monolith. We systematically carve out services from your legacy stack and rebuild them in a modern environment, ensuring zero downtime during the transition.",
   },
   {
     id: "005",
@@ -220,12 +78,12 @@ const FAQS = [
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: FAQS.map((faq) => ({
+  "mainEntity": FAQS.map((faq) => ({
     "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: {
+    "name": faq.question,
+    "acceptedAnswer": {
       "@type": "Answer",
-      text: faq.answer,
+      "text": faq.answer,
     },
   })),
 };
@@ -331,13 +189,6 @@ export default function FAQ() {
                 </div>
               </div>
 
-              {/* <div className="w-full md:w-1/2 h-[400px] md:h-[500px] relative">
-              <div className="absolute inset-0 bg-gradient-to-l from-background via-transparent to-transparent z-10 md:hidden" />
-              <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-                <ambientLight intensity={0.5} />
-                <MorphingNodes />
-              </Canvas>
-            </div> */}
             </div>
           </div>
         </div>
@@ -356,10 +207,10 @@ export default function FAQ() {
                     onClick={() => setActiveCategory(cat)}
                     className={`w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-200 font-medium flex justify-between items-center group
                     ${
-                      activeCategory === cat
-                        ? "bg-[#F48244]/10 text-[#F48244]"
-                        : "text-foreground/60 hover:bg-foreground/5 hover:text-foreground"
-                    }`}
+                  activeCategory === cat ?
+                    "bg-[#F48244]/10 text-[#F48244]" :
+                    "text-foreground/60 hover:bg-foreground/5 hover:text-foreground"
+                  }`}
                   >
                     {cat}
                     {activeCategory === cat && (
@@ -372,111 +223,112 @@ export default function FAQ() {
 
             {/* Main Content - FAQ List */}
             <div className="flex-1 min-h-[500px]">
-              {filteredFaqs.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-64 text-foreground/40 border border-dashed border-foreground/10 rounded-xl">
-                  <p className="font-mono">
-                    No protocols found matching query.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSearchQuery("");
-                      setActiveCategory("All");
-                    }}
-                    className="mt-4 text-sm text-[#F48244] hover:underline"
-                  >
-                    Reset Filters
-                  </button>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {filteredFaqs.map((faq) => (
-                    <div
-                      key={faq.id}
-                      className={`group border rounded-xl overflow-hidden transition-all duration-300 ease-out
-                        ${
-                          expandedId === faq.id
-                            ? "border-[#F48244]/30 bg-foreground/[0.02]"
-                            : "border-foreground/10 bg-background hover:border-foreground/20"
-                        }`}
-                    >
+              {filteredFaqs.length === 0 ?
+                  (
+                    <div className="flex flex-col items-center justify-center h-64 text-foreground/40 border border-dashed border-foreground/10 rounded-xl">
+                      <p className="font-mono">
+                        No protocols found matching query.
+                      </p>
                       <button
-                        onClick={() =>
-                          setExpandedId(expandedId === faq.id ? null : faq.id)
-                        }
-                        className="w-full flex items-start gap-6 p-6 text-left focus:outline-none"
+                        onClick={() => {
+                          setSearchQuery("");
+                          setActiveCategory("All");
+                        }}
+                        className="mt-4 text-sm text-[#F48244] hover:underline"
                       >
-                        <span
-                          className={`font-mono text-xs mt-1 transition-colors duration-300 ${
-                            expandedId === faq.id
-                              ? "text-[#F48244]"
-                              : "text-foreground/30"
-                          }`}
-                        >
-                          {faq.id}
-                        </span>
-
-                        <div className="flex-1">
-                          <h3
-                            className={`text-lg font-medium pr-8 transition-colors duration-300 ${
-                              expandedId === faq.id
-                                ? "text-foreground"
-                                : "text-foreground/80"
-                            }`}
-                          >
-                            {faq.question}
-                          </h3>
-
-                          <div
-                            className={`grid transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] ${
-                              expandedId === faq.id
-                                ? "grid-rows-[1fr] opacity-100 mt-4"
-                                : "grid-rows-[0fr] opacity-0 mt-0"
-                            }`}
-                          >
-                            <div className="overflow-hidden">
-                              <p className="text-foreground/60 leading-relaxed text-base max-w-2xl">
-                                {faq.answer}
-                              </p>
-
-                              {/* Tag Pill */}
-                              <div className="mt-6 flex items-center gap-2">
-                                <span className="inline-flex items-center px-2 py-1 rounded text-[10px] font-mono uppercase tracking-wider bg-foreground/5 text-foreground/50 border border-foreground/5">
-                                  {faq.category}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Expand Icon */}
-                        <div
-                          className={`flex-shrink-0 w-6 h-6 rounded-full border border-foreground/10 flex items-center justify-center transition-colors duration-300 ${
-                            expandedId === faq.id
-                              ? "bg-[#F48244] border-[#F48244] text-white"
-                              : "bg-transparent text-foreground/40 group-hover:border-foreground/30"
-                          }`}
-                        >
-                          <svg
-                            className={`w-3 h-3 transition-transform duration-300 ${
-                              expandedId === faq.id ? "rotate-180" : "rotate-0"
-                            }`}
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M19 9l-7 7-7-7"
-                            />
-                          </svg>
-                        </div>
+                        Reset Filters
                       </button>
                     </div>
-                  ))}
-                </div>
-              )}
+                  ) :
+                  (
+                    <div className="space-y-4">
+                      {filteredFaqs.map(faq => (
+                        <div
+                          key={faq.id}
+                          className={`group border rounded-xl overflow-hidden transition-all duration-300 ease-out
+                                ${
+                        expandedId === faq.id ?
+                          "grid-rows-[1fr] opacity-100 mt-4" :
+                          "grid-rows-[0fr] opacity-0 mt-0"
+                        }`}
+                        >
+                          <button
+                            onClick={() =>
+                              setExpandedId(expandedId === faq.id ? null : faq.id)}
+                            className="w-full flex items-start gap-6 p-6 text-left focus:outline-none"
+                          >
+                            <span
+                              className={`font-mono text-xs mt-1 transition-colors duration-300 ${
+                                expandedId === faq.id ?
+                                  "text-[#F48244]" :
+                                  "text-foreground/30"
+                              }`}
+                            >
+                              {faq.id}
+                            </span>
+
+                            <div className="flex-1">
+                              <h3
+                                className={`text-lg font-medium pr-8 transition-colors duration-300 ${
+                                  expandedId === faq.id ?
+                                    "text-foreground" :
+                                    "text-foreground/80"
+                                }`}
+                              >
+                                {faq.question}
+                              </h3>
+
+                              <div
+                                className={`grid transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] ${
+                                  expandedId === faq.id ?
+                                    "grid-rows-[1fr] opacity-100 mt-4" :
+                                    "grid-rows-[0fr] opacity-0 mt-0"
+                                }`}
+                              >
+                                <div className="overflow-hidden">
+                                  <p className="text-foreground/60 leading-relaxed text-base max-w-2xl">
+                                    {faq.answer}
+                                  </p>
+
+                                  {/* Tag Pill */}
+                                  <div className="mt-6 flex items-center gap-2">
+                                    <span className="inline-flex items-center px-2 py-1 rounded text-[10px] font-mono uppercase tracking-wider bg-foreground/5 text-foreground/50 border border-foreground/5">
+                                      {faq.category}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Expand Icon */}
+                            <div
+                              className={`flex-shrink-0 w-6 h-6 rounded-full border border-foreground/10 flex items-center justify-center transition-colors duration-300 ${
+                                expandedId === faq.id ?
+                                  "bg-[#F48244] border-[#F48244] text-white" :
+                                  "bg-transparent text-foreground/40 group-hover:border-foreground/30"
+                              }`}
+                            >
+                              <svg
+                                className={`w-3 h-3 transition-transform duration-300 ${
+                                  expandedId === faq.id ? "rotate-180" : "rotate-0"
+                                }`}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M19 9l-7 7-7-7"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
             </div>
           </div>
         </div>

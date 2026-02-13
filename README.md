@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project Tooling & Code Quality Setup
 
-## Getting Started
+This project uses a **modern, opinionated linting and Git workflow** to enforce high code quality, catch runtime issues early, and keep the codebase consistent as it scales.
 
-First, run the development server:
+The setup is designed for **Next.js 16 (App Router + Turbopack)** and focuses on developer experience without compromising correctness.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Tech Stack (Tooling)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Next.js** `16.1.6` (Turbopack)
+- **ESLint** — `@antfu/eslint-config`
+- **Husky** — Git hooks
+- **lint-staged** — staged-file linting
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ✨ Why This Setup Exists
 
-To learn more about Next.js, take a look at the following resources:
+- Catch React / JSX / SVG errors before runtime
+- Prevent broken code from being committed
+- Enforce consistent style across the team
+- Improve long-term maintainability
+- Reduce CI failures by shifting checks left (local dev)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧹 ESLint (Antfu Config)
 
-## Deploy on Vercel
+This project uses **@antfu/eslint-config**, a widely adopted, community-maintained ESLint configuration.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### What it enforces
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- React & JSX best practices
+- DOM & SVG property validation
+- Import ordering
+- Sensible defaults with minimal config
+- Strictness without unnecessary noise

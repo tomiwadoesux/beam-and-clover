@@ -1,6 +1,6 @@
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-import VehicleAdmin from "../components/VehicleAdmin";
+import Footer from "../components/footer";
+import Navbar from "../components/navbar";
+import VehicleAdmin from "../components/vehicle-admin";
 
 export const metadata = {
   title: "Vehicle Administration Solutions | Beam & Clover",
@@ -12,8 +12,8 @@ export default function Page() {
   return (
     <div>
       <Navbar />
-      <VehicleAdmin/>
-      <Footer/>
+      <VehicleAdmin />
+      <Footer />
     </div>
   );
 }

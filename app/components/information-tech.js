@@ -1,5 +1,5 @@
-import AButton from "./AButton";
-import ProgressBar from "./ProgressBar";
+import AButton from "./a-button";
+import ProgressBar from "./progress-bar";
 
 export default function InformationTech() {
   return (
@@ -349,7 +349,7 @@ export default function InformationTech() {
                   strokeOpacity="0.15"
                 />
               </svg>
-              {/* 
+              {/*
             <h4 className=" text-sm  text-white">
               <span className="opacity-50">Comprehensive</span> Security Audits{" "}
               <span className="opacity-50">and</span> Protocols{" "}

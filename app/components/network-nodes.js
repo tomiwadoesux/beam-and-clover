@@ -1,8 +1,8 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
-import { useRef, useState, useMemo } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useRef, useState } from "react";
 import * as THREE from "three";
 
 const PARTICLE_COUNT = 35;
@@ -11,13 +11,25 @@ const BASE_SPEED = 0.008;
 
 // Keywords to attach to some nodes
 const NODE_LABELS = [
-  "Fleet Management", "Vehicle Registration", "License Plates", "Traffic Analysis",
-  "Cloud Migration", "Cybersecurity", "Digital Compliance", "Route Optimization",
-  "Supply Chain", "Last-Mile Delivery", "RFID Systems", "IoT Integration",
-  "Smart Cities", "E-Governance", "Data Analytics", "System Integration"
+  "Fleet Management",
+  "Vehicle Registration",
+  "License Plates",
+  "Traffic Analysis",
+  "Cloud Migration",
+  "Cybersecurity",
+  "Digital Compliance",
+  "Route Optimization",
+  "Supply Chain",
+  "Last-Mile Delivery",
+  "RFID Systems",
+  "IoT Integration",
+  "Smart Cities",
+  "E-Governance",
+  "Data Analytics",
+  "System Integration",
 ];
 
-const COMPANY_COLOR = "#F48244"; 
+const COMPANY_COLOR = "#F48244";
 
 function Nodes() {
   // Initialize particles
@@ -25,22 +37,22 @@ function Nodes() {
     const temp = [];
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       // Pick a random label for some nodes (roughly 1 in 3)
-      const label = Math.random() > 0.65 
-        ? NODE_LABELS[Math.floor(Math.random() * NODE_LABELS.length)] 
-        : null;
+      const label = Math.random() > 0.65 ?
+        NODE_LABELS[Math.floor(Math.random() * NODE_LABELS.length)] :
+        null;
 
       temp.push({
         position: new THREE.Vector3(
           (Math.random() - 0.5) * 18,
           (Math.random() - 0.5) * 12,
-          (Math.random() - 0.5) * 8
+          (Math.random() - 0.5) * 8,
         ),
         velocity: new THREE.Vector3(
           (Math.random() - 0.5) * BASE_SPEED,
           (Math.random() - 0.5) * BASE_SPEED,
-          (Math.random() - 0.5) * BASE_SPEED
+          (Math.random() - 0.5) * BASE_SPEED,
         ),
-        label
+        label,
       });
     }
     return temp;
@@ -56,12 +68,18 @@ function Nodes() {
       p.position.add(p.velocity);
 
       // Bounce off "walls" (soft boundaries)
-      if (p.position.x > 12) p.velocity.x = -Math.abs(p.velocity.x);
-      if (p.position.x < -12) p.velocity.x = Math.abs(p.velocity.x);
-      if (p.position.y > 8) p.velocity.y = -Math.abs(p.velocity.y);
-      if (p.position.y < -8) p.velocity.y = Math.abs(p.velocity.y);
-      if (p.position.z > 6) p.velocity.z = -Math.abs(p.velocity.z);
-      if (p.position.z < -6) p.velocity.z = Math.abs(p.velocity.z);
+      if (p.position.x > 12)
+        p.velocity.x = -Math.abs(p.velocity.x);
+      if (p.position.x < -12)
+        p.velocity.x = Math.abs(p.velocity.x);
+      if (p.position.y > 8)
+        p.velocity.y = -Math.abs(p.velocity.y);
+      if (p.position.y < -8)
+        p.velocity.y = Math.abs(p.velocity.y);
+      if (p.position.z > 6)
+        p.velocity.z = -Math.abs(p.velocity.z);
+      if (p.position.z < -6)
+        p.velocity.z = Math.abs(p.velocity.z);
 
       // Update Sphere Mesh
       if (spheresRef.current[i]) {
@@ -72,9 +90,9 @@ function Nodes() {
       // We offset the text slightly so it floats near the node
       if (p.label && textRefs.current[i]) {
         textRefs.current[i].position.set(
-          p.position.x + 0.3, 
-          p.position.y + 0.3, 
-          p.position.z
+          p.position.x + 0.3,
+          p.position.y + 0.3,
+          p.position.z,
         );
       }
     });
@@ -108,7 +126,7 @@ function Nodes() {
             <sphereGeometry args={[0.08, 16, 16]} />
             <meshBasicMaterial color={COMPANY_COLOR} />
           </mesh>
-          
+
           {/* The Text Label (if applicable) */}
           {p.label && (
             <Text
@@ -127,17 +145,16 @@ function Nodes() {
       {/* Connecting Lines */}
       <lineSegments>
         <bufferGeometry ref={linesGeometryRef} />
-        <lineBasicMaterial 
-          color={COMPANY_COLOR} 
-          transparent 
-          opacity={0.2} 
-          depthWrite={false} 
+        <lineBasicMaterial
+          color={COMPANY_COLOR}
+          transparent
+          opacity={0.2}
+          depthWrite={false}
         />
       </lineSegments>
     </group>
   );
 }
-
 
 export default function NetworkNodes() {
   return (

@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { useState, useRef } from "react";
-import AButton from "./AButton";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Link from "next/link";
+import { useRef, useState } from "react";
+
+import AButton from "./a-button";
 import Logo from "./logo";
 // Icons
 const Icons = {
@@ -143,7 +144,7 @@ const servicesData = [
     title: "Vehicle Administration",
     desc: "Manage your fleet efficiently",
     icon: <Icons.Vehicle />,
-    href: "/Vehicle-Administration",
+    href: "/vehicle-administration",
   },
   {
     title: "IT Services",
@@ -155,7 +156,7 @@ const servicesData = [
     title: "Logistics",
     desc: "Expert advice and strategy",
     icon: <Icons.Logistics />,
-    href: "/Logistics",
+    href: "/logistics",
   },
 ];
 
@@ -240,7 +241,8 @@ export default function Navbar() {
           ease: "power2.out",
         },
       );
-    } else {
+    }
+    else {
       gsap.to(mobileMenuRef.current, {
         y: -10,
         opacity: 0,
@@ -266,7 +268,8 @@ export default function Navbar() {
           ease: "power2.out",
         },
       );
-    } else {
+    }
+    else {
       gsap.to(servicesDropdownRef.current, {
         opacity: 0,
         scale: 0.95,
@@ -293,7 +296,8 @@ export default function Navbar() {
           ease: "power2.out",
         },
       );
-    } else {
+    }
+    else {
       gsap.to(resourcesDropdownRef.current, {
         opacity: 0,
         scale: 0.95,
@@ -499,11 +503,13 @@ export default function Navbar() {
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            {isMobileMenuOpen ? (
-              <path d="M18 6L6 18M6 6l12 12" />
-            ) : (
-              <path d="M3 12h18M3 6h18M3 18h18" />
-            )}
+            {isMobileMenuOpen ?
+                (
+                  <path d="M18 6L6 18M6 6l12 12" />
+                ) :
+                (
+                  <path d="M3 12h18M3 6h18M3 18h18" />
+                )}
           </svg>
         </button>
       </div>

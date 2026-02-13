@@ -15,7 +15,7 @@ export default function sitemap() {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/Vehicle-Administration`,
+      url: `${baseUrl}/vehicle-administration`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
@@ -27,7 +27,7 @@ export default function sitemap() {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/Logistics`,
+      url: `${baseUrl}/logistics`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
